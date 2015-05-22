@@ -1,37 +1,39 @@
-Valdmor
+Ligo
 ========================================
 Game in development using [Tiled](http://www.mapeditor.org/) a tile map editor, [LÖVE](http://love2d.org) a lua game engine and [Tiölved](https://github.com/thiolliere/tiolved) a library to use Tiled in Löve.
 
-current state : 0.1
-[github](https://github.com/thiolliere/valdmor)
+current state : 0.1 alpha
+
+the project is free and open source and is hosted on github [here](https://github.com/thiolliere/ligo)
+
+all version are available [there](http://www.thiolliere.org/ligo/download)
 
 about
 ----------------------------------------
-Valdmor is a mix of top-down and shoot'em up gameplay. In fact 
+Ligo is two player cooperative game. 
+The main mecanic is a link between players that force them to act together. 
+Indeed the link is the only way to kill ennemy. 
+However surviving is individual.
 
-* static or very patterned engine throw bullet that have to be dodge in shoot'em up way using 'z' 'q' 's' 'd' 
-* and monster with basic AI - such as run to the hero, stay at a distance from the hero, have to be killed by shooting on them with the mouse aim.
+The input are simple as possible : 4 directions and a key. It can be played on joystick or keyboard.
 
-Valdmor uses 
+Ligo uses 
 
-* löve2d game engine to manage sound, drawing, keyboard, and a physic engine
+* löve2d game engine to manage sounds, graphics, keyboard, and physics
 * tiled, a tile map editor that is used as a complete game map editor.
-* tiölved to interprete map from tiled in xml into lua.
+* tiölved to use tiled in love2d
 
-install
+install stable version
 ----------------------------------------
 
 * linux : 
 	* install [LÖVE](http://love2d.org) 
-	* download [valdmor.love](http://www.thiolliere.org/valdmor/download/valdmor0.1/valdmor.love)
+	* download [ligo.love](http://www.thiolliere.org/ligo/download/stable/ligo.love)
 * windows :
-	* 32 bit : [valdmor32](http://www.thiolliere.org/valdmor/download/valdmor0.1/valdmor32.zip)
-	* 64 bit : [valdmor64](http://www.thiolliere.org/valdmor/downloadvaldmor0.1/valdmor64.zip)
+	* 32 bit : [ligo_win32](http://www.thiolliere.org/ligo/download/stable/ligo_win32.zip)
+	* 64 bit : [ligo_win64](http://www.thiolliere.org/ligo/download/stable/ligo_win64.zip)
 * mac :
-	* download [valdmor_osx](http://www.thiolliere.org/valdmor/download/valmdor0.1/valdmor_osx.zip)
-
-play
-----------------------------------------
+	* download [ligo_osx](http://www.thiolliere.org/ligo/download/stable/ligo_osx.zip)
 
 map editor
 ----------------------------------------
@@ -112,19 +114,3 @@ It uses tiled as said above. There are two kind of tilelayer : the interpreted a
 ### drawned
 * name mustn't be *objet*
 * the layer must have propriety named *z* and valued *0* or *1* for the moment
-
-todo
-----
-* sound balance
-* searchDeep
-* save config file
-* arrowslit angular velocity can be changed be colliding with them
-* calculate with time and not frame
-
-global idea(french)
------------------------------------------
-
-####**Son** : l'ensemble est dans un style 8-bit.
-
-* **effets sonores** générés simplement avec sfxr.
-* **musiques** divisé en variations avec des variations discrètes et d'autre très présente de manière à s'adapter au differente phase de gameplay : puzzle/plateforme-douce et combat/plateforme-dure respectivement.
