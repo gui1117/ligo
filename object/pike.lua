@@ -17,14 +17,14 @@ function create.pike(world,x,y,gid)
 		sound[np.sound.."-declench"]={cursor=1}
 	end
 	for i=1,5 do
-		table.insert(sound[np.sound.."-declench"],love.audio.newSource("sound/"..np.sound.."-declench.ogg","static"))
+		table.insert(sound[np.sound.."-declench"],initsource(love.audio.newSource("sound/"..np.sound.."-declench.ogg","static")))
 	end
 
 	if not sound[np.sound.."-up"] then
 		sound[np.sound.."-up"]={cursor=1}
 	end
 	for i=1,5 do
-		table.insert(sound[np.sound.."-up"],love.audio.newSource("sound/"..np.sound.."-up.ogg","static"))
+		table.insert(sound[np.sound.."-up"],initsource(love.audio.newSource("sound/"..np.sound.."-up.ogg","static")))
 	end
 
 	np.body=love.physics.newBody(world,x-1/2,y-1/2,"kinematic")
@@ -43,7 +43,7 @@ function create.pike(world,x,y,gid)
 			if not np.up then
 				local s=sound[np.sound.."-declench"]
 				s[s.cursor]:setPosition(np.body:getX(),np.body:getY())
-				play(s[s.cursor])
+				s[s.cursor]:play()
 				s.cursor=s.cursor % table.getn(s) +1
 
 				np.declench=love.timer.getTime() + pike.timeToDeclench
@@ -54,7 +54,7 @@ function create.pike(world,x,y,gid)
 			if love.timer.getTime() > np.declench then
 				local s=sound[np.sound.."-up"]
 				s[s.cursor]:setPosition(np.body:getX(),np.body:getY())
-				play(s[s.cursor])
+				s[s.cursor]:play()
 				s.cursor=s.cursor % table.getn(s) +1
 
 				np.up=love.timer.getTime() + pike.timeUp

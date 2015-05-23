@@ -17,13 +17,13 @@ function create.generator(world, x, y, gid, mapgid)
 	if not sound[ng.sound.."-spawn"] then
 		sound[ng.sound.."-spawn"]={cursor=1}
 		for i=1,20 do
-			table.insert(sound[ng.sound.."-spawn"],love.audio.newSource("sound/"..ng.sound.."-spawn.ogg","static"))
+			table.insert(sound[ng.sound.."-spawn"],initsource(love.audio.newSource("sound/"..ng.sound.."-spawn.ogg","static")))
 		end
 	end
 	if not sound[ng.sound.."-prespawn"] then
 		sound[ng.sound.."-prespawn"]={cursor=1}
 		for i=1,20 do
-			table.insert(sound[ng.sound.."-prespawn"],love.audio.newSource("sound/"..ng.sound.."-prespawn.ogg","static"))
+			table.insert(sound[ng.sound.."-prespawn"],initsource(love.audio.newSource("sound/"..ng.sound.."-prespawn.ogg","static")))
 		end
 	end
 
@@ -90,7 +90,7 @@ function initGeneratorUpdate(ng,world,x,y,gid,mapgid)
 					ng.state="prespawn"
 					local s=sound[ng.sound.."-prespawn"]
 					s[s.cursor]:setPosition(ng.body:getX(),ng.body:getY())
-					play(s[s.cursor])
+					s[s.cursor]:play()
 					s.cursor=s.cursor % table.getn(s) +1
 
 				end
@@ -100,7 +100,7 @@ function initGeneratorUpdate(ng,world,x,y,gid,mapgid)
 					ng.state="wait"
 					local s=sound[ng.sound.."-spawn"]
 					s[s.cursor]:setPosition(ng.body:getX(),ng.body:getY())
-					play(s[s.cursor])
+					s[s.cursor]:play()
 					s.cursor=s.cursor % table.getn(s) +1
 
 					local spawn={}

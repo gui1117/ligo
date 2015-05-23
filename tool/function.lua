@@ -21,14 +21,8 @@ function norme(x,y)
 	return math.sqrt(math.pow(x,2)+math.pow(y,2))
 end
 
-function play(source)
-	local xs,ys=source:getPosition()
-	local xc,yc=love.audio.getPosition()
-	local n = norme(xs-xc,ys-yc) 
-	if n<20 then
-		source:play()
-	elseif n<40 then
-		source:setVolume(-n/20+2)
-		source:play()
-	end
+function initsource(source)
+	source:setAttenuationDistances(6,60)
+	source:setRolloff(2)
+	return source
 end

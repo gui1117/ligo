@@ -16,22 +16,22 @@ function create.redmonster(world,x,y,gid)
 	if not sound[nrm.sound.."-run"] then
 		sound[nrm.sound.."-run"]={cursor=1}
 	end
-	local tmp=love.audio.newSource("sound/"..nrm.sound.."-run.ogg","static")
+	local tmp=initsource(love.audio.newSource("sound/"..nrm.sound.."-run.ogg","static"))
 	tmp:setLooping("true")
 	sound[nrm.sound.."-run"][nrm.nbr]=tmp
 
 	if not sound[nrm.sound.."-die"] then
 		sound[nrm.sound.."-die"]={cursor=1}
-	end
 	for i=1,5 do
-		table.insert(sound[nrm.sound.."-die"],love.audio.newSource("sound/"..nrm.sound.."-die.ogg","static"))
+		table.insert(sound[nrm.sound.."-die"],initsource(love.audio.newSource("sound/"..nrm.sound.."-die.ogg","static")))
+	end
 	end
 
 	if not sound[nrm.sound.."-damage"] then
 		sound[nrm.sound.."-damage"]={cursor=1}
-	end
 	for i=1,5 do
-		table.insert(sound[nrm.sound.."-damage"],love.audio.newSource("sound/"..nrm.sound.."-damage.ogg","static"))
+		table.insert(sound[nrm.sound.."-damage"],initsource(love.audio.newSource("sound/"..nrm.sound.."-damage.ogg","static")))
+	end
 	end
 
 	initRedmonsterCarac(nrm,world,x,y,gid)
@@ -83,7 +83,7 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 			if v.other and v.other.makeDamage and v.other.name ~= nrm.name then
 				local s=sound[nrm.sound.."-damage"]
 				s[s.cursor]:setPosition(nrm.body:getX(),nrm.body:getY())
-				play(s[s.cursor])
+				s[s.cursor]:play()
 				s.cursor=s.cursor % table.getn(s) +1
 
 				v.other.makeDamage(nrm.damage)
@@ -113,7 +113,7 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 		y2=math.ceil(y2min)
 		if nrm.state=="waiting" then
 			if normMin<nrm.distance then 
-				play(sound[nrm.sound.."-run"][nrm.nbr])
+				sound[nrm.sound.."-run"][nrm.nbr]:play()
 				nrm.state="searching"
 			end
 		elseif nrm.state=="hunting" then
@@ -158,7 +158,7 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 	function nrm.kill()
 		local s=sound[nrm.sound.."-die"]
 		s[s.cursor]:setPosition(nrm.body:getX(),nrm.body:getY())
-		play(s[s.cursor])
+		s[s.cursor]:play()
 		s.cursor=s.cursor % table.getn(s) +1
 
 		nrm.body:destroy()

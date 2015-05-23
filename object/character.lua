@@ -53,48 +53,36 @@ function create.character( world, x, y, gid)
 	character[p].name="character"
 	character[p].nbr=p
 
-	if not sound["character-walk"] then
-		sound["character-walk"]={cursor=1}
-	end
-	local tmp=love.audio.newSource("sound/character-walk.ogg","static")
-	tmp:setLooping("true")
-	table.insert(sound["character-walk"],tmp)
-	if not sound["character-run"] then
-		sound["character-run"]={cursor=1}
-	end
-	local tmp=love.audio.newSource("sound/character-run.ogg","static")
-	tmp:setLooping("true")
-	table.insert(sound["character-run"],tmp)
 	if not sound["character-damaged"] then
 		sound["character-damaged"]={cursor=1}
 	end
 	for i=1,5 do
-		table.insert(sound["character-damaged"],love.audio.newSource("sound/character-damaged.ogg","static"))
+		table.insert(sound["character-damaged"],initsource(love.audio.newSource("sound/character-damaged.ogg","static")))
 	end
 	if not sound["character-phantom"] then
 		sound["character-phantom"]={cursor=1}
 	end
-	table.insert(sound["character-phantom"],love.audio.newSource("sound/character-phantom.ogg","static"))
+	table.insert(sound["character-phantom"],initsource(love.audio.newSource("sound/character-phantom.ogg","static")))
 	if not sound["character-resurrection"] then
 		sound["character-resurrection"]={cursor=1}
 	end
-	table.insert(sound["character-resurrection"],love.audio.newSource("sound/character-resurrection.ogg","static"))
+	table.insert(sound["character-resurrection"],initsource(love.audio.newSource("sound/character-resurrection.ogg","static")))
 	if not sound["character-link"] then
 		sound["character-link"]={cursor=1}
 	end
-	table.insert(sound["character-link"],love.audio.newSource("sound/character-link.ogg","static"))
+	table.insert(sound["character-link"],initsource(love.audio.newSource("sound/character-link.ogg","static")))
 	if not sound["character-heal"] then
 		sound["character-heal"]={cursor=1}
 	end
-	table.insert(sound["character-heal"],love.audio.newSource("sound/character-heal.ogg","static"))
+	table.insert(sound["character-heal"],initsource(love.audio.newSource("sound/character-heal.ogg","static")))
 	if not sound["character-die"] then
 		sound["character-die"]={cursor=1}
 	end
-	table.insert(sound["character-die"],love.audio.newSource("sound/character-die.ogg","static"))
+	table.insert(sound["character-die"],initsource(love.audio.newSource("sound/character-die.ogg","static")))
 	if not sound["character-restart"] then
 		sound["character-restart"]={cursor=1}
 	end
-	table.insert(sound["character-restart"],love.audio.newSource("sound/character-restart.ogg","static"))
+	table.insert(sound["character-restart"],initsource(love.audio.newSource("sound/character-restart.ogg","static")))
 
 	local cp=character[p]
 
@@ -112,28 +100,11 @@ function create.character( world, x, y, gid)
 	setGroup(character[p].fixture,"hero")
 
 	character[p].draw=function ()
-		local sw=sound["character-walk"][p]
-		local sr=sound["character-run"][p]
 		local x,y=toRender( character[p].body:getX(), character[p].body:getY())
 		local o=character[p].body:getAngle()
 		if norme(character[p].body:getLinearVelocity())<character.velocity*0.05 then
-			if sw:isPlaying() then
-				sw:stop()
-			end
-			if sr:isPlaying() then
-				sr:stop()
-			end
 			tileset:add( 30, gid.animation[1].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
 		else
-			if character[p].walk and not sw:isPlaying() then
-				sr:stop()
-				sw:setPosition(cp.body:getX(),cp.body:getY())
-				play(sw)
-			elseif not character[p].walk and not sr:isPlaying() then
-				sw:stop()
-				sr:setPosition(cp.body:getX(),cp.body:getY())
-				play(sr)
-			end
 			tileset:add( 30, gid.animation[2].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
 		end
 	end
@@ -141,14 +112,14 @@ function create.character( world, x, y, gid)
 	character[p].makeDamage=function(num)
 		local s=sound["character-damaged"]
 		s[s.cursor]:setPosition(cp.body:getX(),cp.body:getY())
-		play(s[s.cursor])
+		s[s.cursor]:play()
 		s.cursor=s.cursor % table.getn(s) +1
 		character[p].life=character[p].life-num
 	end
 	character[p].kill=function()
 		local s=sound["character-restart"]
 		s[p]:setPosition(cp.body:getX(),cp.body:getY())
-		play(s[p])
+		s[p]:play()
 		character[p].body:setPosition(x-1/2,y-1/2)
 		character[p].body:setAngularVelocity(0)
 		character[p].body:setLinearVelocity(0,0)
@@ -168,11 +139,11 @@ function create.character( world, x, y, gid)
 				if v.other.killed then
 					local s=sound["character-resurrection"]
 					s[p]:setPosition(cp.body:getX(),cp.body:getY())
-					play(s[p])
+					s[p]:play()
 				else
 					local s=sound["character-heal"]
 					s[p]:setPosition(cp.body:getX(),cp.body:getY())
-					play(s[p])
+					s[p]:play()
 				end
 				v.other.life=character.lifemax
 				v.other.killed=false
@@ -181,7 +152,7 @@ function create.character( world, x, y, gid)
 				if nl then
 					local s=sound["character-link"]
 					s[p]:setPosition(cp.body:getX(),cp.body:getY())
-					play(s[p])
+					s[p]:play()
 
 					nl.unlink()
 					nl.link()
@@ -192,7 +163,7 @@ function create.character( world, x, y, gid)
 		if character[p].life<=0 and not character[p].killed then
 			local s=sound["character-die"]
 			s[p]:setPosition(cp.body:getX(),cp.body:getY())
-			play(s[p])
+			s[p]:play()
 
 			character[p].killed=true
 			setGroup(character[p].fixture,"phantom")

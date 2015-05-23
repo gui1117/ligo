@@ -105,10 +105,12 @@ function gameState:keypressed(key, unicode)
 	character.keypressed(key,unicode)
 	if key == "escape" then
 		enableState("pause")
-	elseif key == "kp+" then 
-		love.audio.setVolume(love.audio.getVolume()*1.5)
-	elseif key == "kp-" then
-		love.audio.setVolume(love.audio.getVolume()*0.5)
+--	elseif key == "kp+" then 
+--		love.audio.setVolume(love.audio.getVolume()*1.5)
+--	elseif key == "kp-" then
+--		love.audio.setVolume(love.audio.getVolume()*0.5)
+	elseif key == "p" then
+		music:pause()
 	elseif key == "g" then
 		printdebug=not printdebug
 	end

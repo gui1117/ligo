@@ -11,7 +11,7 @@ function create.arrow(world,x,y,gid,a)
 	if not sound[na.sound.."-destroy"] then
 		sound[na.sound.."-destroy"]={cursor=1}
 		for i=1,20 do
-			table.insert(sound[na.sound.."-destroy"],love.audio.newSource("sound/"..na.sound.."-destroy.ogg","static"))
+			table.insert(sound[na.sound.."-destroy"],initsource(love.audio.newSource("sound/"..na.sound.."-destroy.ogg","static")))
 		end
 	end
 
@@ -45,7 +45,7 @@ function create.arrow(world,x,y,gid,a)
 	function na.kill()
 		local s=sound[na.sound.."-destroy"]
 		s[s.cursor]:setPosition(na.body:getX(),na.body:getY())
-		play(s[s.cursor])
+		s[s.cursor]:play()
 		s.cursor=s.cursor % table.getn(s) +1
 --		local x=na.body:getX()
 --		local y=na.body:getY()

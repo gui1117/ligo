@@ -1,6 +1,6 @@
 version=0.3
 gdebug=""
-trueTimeCoef=1
+trueTimeCoef=0.5
 timeCoef=1/trueTimeCoef
 sound={}
 
@@ -96,9 +96,7 @@ function love.load()
 	-- keyboard disable repeating key
 	love.keyboard:setKeyRepeat(false)
 
-	love.audio.setDistanceModel("none")
-	love.graphics.setPointSize(5)
-	love.graphics.setPointStyle("rough")
+	love.audio.setDistanceModel("linear clamped")
 	--Add Gamestates Here
 	addState(menuState, "menu")
 	addState(pauseState, "pause")
