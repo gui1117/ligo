@@ -2,6 +2,7 @@ version=0.3
 gdebug=""
 trueTimeCoef=1
 timeCoef=1/trueTimeCoef
+sound={}
 
 --Libraries
 require "lib.stateManager"

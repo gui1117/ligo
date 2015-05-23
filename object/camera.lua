@@ -10,6 +10,7 @@ camera.tileinwidth=35
 camera.tileinheight=35
 camera.tilewidth=16
 camera.tileheight=16
+camera.scaleFactor=1
 
 function create.camera(world,x,y,gid)
 	camera.scaleX=tonumber(gid.scale) or camera.scaleX
@@ -72,9 +73,14 @@ function camera:setScale(sx, sy)
 end
 
 function camera:update()
+	if love.keyboard.isDown("kp+") then
+		camera.scaleFactor=camera.scaleFactor*1.02
+	elseif love.keyboard.isDown("kp-") then
+		camera.scaleFactor=camera.scaleFactor*0.98
+	end
 	local w=love.graphics.getWidth()
 	local h=love.graphics.getHeight()
-	local m=math.max(w,h)/500
+	local m=math.max(w,h)/500*camera.scaleFactor
 	camera.scaleX=1/m
 	camera.scaleY=1/m
 	local n=table.getn(character)
@@ -85,6 +91,7 @@ function camera:update()
 	end
 	camera.cx=camera.cx/n
 	camera.cy=camera.cy/n
+	love.audio.setPosition(camera.cx,camera.cy)
 	local cx,cy=toRender(camera.cx,camera.cy)
 	local wx=love.window.getWidth()*camera.scaleX
 	local wy=love.window.getHeight()*camera.scaleY

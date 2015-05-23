@@ -13,8 +13,19 @@ function create.generator(world, x, y, gid, mapgid)
 	ng.nbr=generator.nbr
 	ng.name="generator"
 
-	ng.shootsound=love.audio.newSource("sound/arrowshoot.ogg","static")
-	ng.shootsound:setPosition(x-1/2,y-1/2)
+	ng.sound=gid.sound or "generator"
+	if not sound[ng.sound.."-spawn"] then
+		sound[ng.sound.."-spawn"]={cursor=1}
+		for i=1,20 do
+			table.insert(sound[ng.sound.."-spawn"],love.audio.newSource("sound/"..ng.sound.."-spawn.ogg","static"))
+		end
+	end
+	if not sound[ng.sound.."-prespawn"] then
+		sound[ng.sound.."-prespawn"]={cursor=1}
+		for i=1,20 do
+			table.insert(sound[ng.sound.."-prespawn"],love.audio.newSource("sound/"..ng.sound.."-prespawn.ogg","static"))
+		end
+	end
 
 	initGeneratorCarac(ng,world,x,y,gid,mapgid)
 	initGeneratorPhysic(ng,world,x,y,gid,mapgid)
@@ -25,8 +36,9 @@ function create.generator(world, x, y, gid, mapgid)
 end
 
 function initGeneratorCarac(ng,world,x,y,gid,mapgid)
+	ng.prespawnCoef=tonumber(gid.prespawn) or 0.75
 	ng.rate=(tonumber(gid.rate) or 1)*timeCoef
-	ng.timeToSpawn=love.timer.getTime() + ng.rate - (tonumber(gid.newtime) or 0)
+	ng.timeToPrespawn=love.timer.getTime() + ng.rate*ng.prespawnCoef - (tonumber(gid.newtime) or 0)
 	ng.spawn={}
 	local nbr=tonumber(gid.spawn) or 4
 	if nbr==4 or nbr==8 or nbr==12 then
@@ -48,7 +60,7 @@ function initGeneratorCarac(ng,world,x,y,gid,mapgid)
 		table.insert(ng.spawn,{x=0,y=2})
 	end
 	ng.salvo=tonumber(gid.salvo) or 4
-	ng.monstergid=mapgid[gid.animation[2].tileid]
+	ng.monstergid=mapgid[gid.animation[3].tileid]
 	ng.distance=tonumber(gid.distance) or 22
 end
 
@@ -67,20 +79,39 @@ function initGeneratorPhysic(ng,world,x,y,gid,mapgid)
 end
 
 function initGeneratorUpdate(ng,world,x,y,gid,mapgid)
+	ng.state="wait"
 	function ng.update ()
 		ng.beginContact={}
 		local cx,cy=camera.cx,camera.cy
 		if norme(x-1/2-cx,y-1/2-cy)<ng.distance then
-			if love.timer.getTime() > ng.timeToSpawn then
-				ng.timeToSpawn=ng.timeToSpawn + ng.rate
-				local spawn={}
-				for _,v in ipairs(ng.spawn) do
-					table.insert(spawn,v)
+			if ng.state=="wait" then
+				if love.timer.getTime() > ng.timeToPrespawn then
+					ng.timeToSpawn=love.timer.getTime()+(1-ng.prespawnCoef)*ng.rate
+					ng.state="prespawn"
+					local s=sound[ng.sound.."-prespawn"]
+					s[s.cursor]:setPosition(ng.body:getX(),ng.body:getY())
+					play(s[s.cursor])
+					s.cursor=s.cursor % table.getn(s) +1
+
 				end
-				for i=ng.salvo,1,-1 do
-					local j=math.random(1,table.getn(spawn))
-					create[ng.monstergid.name](world,x-1/2+spawn[j].x,y-1/2+spawn[j].y,ng.monstergid)
-					table.remove(spawn,j)
+			elseif ng.state=="prespawn" then
+				if love.timer.getTime() > ng.timeToSpawn then
+					ng.timeToPrespawn=love.timer.getTime()+ng.prespawnCoef*ng.rate
+					ng.state="wait"
+					local s=sound[ng.sound.."-spawn"]
+					s[s.cursor]:setPosition(ng.body:getX(),ng.body:getY())
+					play(s[s.cursor])
+					s.cursor=s.cursor % table.getn(s) +1
+
+					local spawn={}
+					for _,v in ipairs(ng.spawn) do
+						table.insert(spawn,v)
+					end
+					for i=ng.salvo,1,-1 do
+						local j=math.random(1,table.getn(spawn))
+						create[ng.monstergid.name](world,x-1/2+spawn[j].x,y-1/2+spawn[j].y,ng.monstergid)
+						table.remove(spawn,j)
+					end
 				end
 			end
 		end
@@ -90,6 +121,12 @@ end
 function initGeneratorDraw(ng,world,x,y,gid,mapgid)
 	local xr,yr=toRender(x-1/2,y-1/2)
 	function ng.draw ()
-		tileset:add(40,gid.animation[1].tileid,xr,yr,ng.body:getAngle(),1,1,toRender(1/2,1/2))
+		local nbr
+		if ng.state=="wait" then
+			nbr=1
+		else
+			nbr=2
+		end
+		tileset:add(40,gid.animation[nbr].tileid,xr,yr,ng.body:getAngle(),1,1,toRender(1/2,1/2))
 	end
 end

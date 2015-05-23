@@ -94,6 +94,7 @@ end
 -- with 3 methods :
 -- update(dt) : change the canvas of animated tile
 -- add( z, id, x, y, z, .. , kx, ky) : add a sprite in batch[z][id]
+-- add effect
 -- draw() : draw and clear all spritebatch
 function tiolved.tileset(gid,map)
 	local tileset={

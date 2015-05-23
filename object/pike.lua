@@ -12,8 +12,20 @@ function create.pike(world,x,y,gid)
 	np.nbr=pike.nbr
 	np.name="pike"
 
-	np.upsound=love.audio.newSource("sound/pike.ogg","static")
-	np.upsound:setPosition(x-1/2,y-1/2)
+	np.sound=gid.sound or "pike"
+	if not sound[np.sound.."-declench"] then
+		sound[np.sound.."-declench"]={cursor=1}
+	end
+	for i=1,5 do
+		table.insert(sound[np.sound.."-declench"],love.audio.newSource("sound/"..np.sound.."-declench.ogg","static"))
+	end
+
+	if not sound[np.sound.."-up"] then
+		sound[np.sound.."-up"]={cursor=1}
+	end
+	for i=1,5 do
+		table.insert(sound[np.sound.."-up"],love.audio.newSource("sound/"..np.sound.."-up.ogg","static"))
+	end
 
 	np.body=love.physics.newBody(world,x-1/2,y-1/2,"kinematic")
 	np.shape=love.physics.newRectangleShape(1,1)
@@ -29,15 +41,24 @@ function create.pike(world,x,y,gid)
 	function np.update()
 		for _,v in ipairs(np.beginContact) do
 			if not np.up then
-				np.declenche=love.timer.getTime() + pike.timeToDeclench
+				local s=sound[np.sound.."-declench"]
+				s[s.cursor]:setPosition(np.body:getX(),np.body:getY())
+				play(s[s.cursor])
+				s.cursor=s.cursor % table.getn(s) +1
+
+				np.declench=love.timer.getTime() + pike.timeToDeclench
 			end
 		end
 		np.beginContact={}
-		if np.declenche then
+		if np.declench then
 			if love.timer.getTime() > np.declench then
+				local s=sound[np.sound.."-up"]
+				s[s.cursor]:setPosition(np.body:getX(),np.body:getY())
+				play(s[s.cursor])
+				s.cursor=s.cursor % table.getn(s) +1
+
 				np.up=love.timer.getTime() + pike.timeUp
-				np.declenche=false
-				play(np.upsound)
+				np.declench=false
 				create.pikedamage(world,x,y,np)
 			end
 		end

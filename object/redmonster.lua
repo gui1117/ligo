@@ -12,6 +12,28 @@ function create.redmonster(world,x,y,gid)
 	nrm.nbr=redmonster.nbr
 	nrm.name="redmonster"
 
+	nrm.sound=gid.sound or "redmonster"
+	if not sound[nrm.sound.."-run"] then
+		sound[nrm.sound.."-run"]={cursor=1}
+	end
+	local tmp=love.audio.newSource("sound/"..nrm.sound.."-run.ogg","static")
+	tmp:setLooping("true")
+	sound[nrm.sound.."-run"][nrm.nbr]=tmp
+
+	if not sound[nrm.sound.."-die"] then
+		sound[nrm.sound.."-die"]={cursor=1}
+	end
+	for i=1,5 do
+		table.insert(sound[nrm.sound.."-die"],love.audio.newSource("sound/"..nrm.sound.."-die.ogg","static"))
+	end
+
+	if not sound[nrm.sound.."-damage"] then
+		sound[nrm.sound.."-damage"]={cursor=1}
+	end
+	for i=1,5 do
+		table.insert(sound[nrm.sound.."-damage"],love.audio.newSource("sound/"..nrm.sound.."-damage.ogg","static"))
+	end
+
 	initRedmonsterCarac(nrm,world,x,y,gid)
 	initRedmonsterPhysic(nrm,world,x,y,gid)
 	initRedmonsterUpdate(nrm,world,x,y,gid)
@@ -59,6 +81,11 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 	function nrm.update()
 		for _,v in ipairs(nrm.beginContact) do
 			if v.other and v.other.makeDamage and v.other.name ~= nrm.name then
+				local s=sound[nrm.sound.."-damage"]
+				s[s.cursor]:setPosition(nrm.body:getX(),nrm.body:getY())
+				play(s[s.cursor])
+				s.cursor=s.cursor % table.getn(s) +1
+
 				v.other.makeDamage(nrm.damage)
 				nrm.kill()
 				return
@@ -86,6 +113,7 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 		y2=math.ceil(y2min)
 		if nrm.state=="waiting" then
 			if normMin<nrm.distance then 
+				play(sound[nrm.sound.."-run"][nrm.nbr])
 				nrm.state="searching"
 			end
 		elseif nrm.state=="hunting" then
@@ -118,6 +146,7 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 				nrm.nextnode=nrm.nodes()
 			else
 				nrm.state="waiting"
+				sound[nrm.sound.."-run"][nrm.nbr]:stop()
 			end
 		end
 	end
@@ -127,6 +156,11 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 		end
 	end
 	function nrm.kill()
+		local s=sound[nrm.sound.."-die"]
+		s[s.cursor]:setPosition(nrm.body:getX(),nrm.body:getY())
+		play(s[s.cursor])
+		s.cursor=s.cursor % table.getn(s) +1
+
 		nrm.body:destroy()
 		object[nrm.name..nrm.nbr]=nil
 		nrm=nil

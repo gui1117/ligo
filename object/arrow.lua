@@ -7,6 +7,14 @@ function create.arrow(world,x,y,gid,a)
 	arrow.nbr=arrow.nbr+1
 	na.nbr=arrow.nbr
 
+	na.sound=gid.sound or "arrow"
+	if not sound[na.sound.."-destroy"] then
+		sound[na.sound.."-destroy"]={cursor=1}
+		for i=1,20 do
+			table.insert(sound[na.sound.."-destroy"],love.audio.newSource("sound/"..na.sound.."-destroy.ogg","static"))
+		end
+	end
+
 	na.shape=gid.shape or "circle"
 	na.radius=tonumber(gid.radius) or 0.3
 	na.height=tonumber(gid.height) or 0.3
@@ -35,6 +43,17 @@ function create.arrow(world,x,y,gid,a)
 	na.beginContact={}
 	local time=love.timer.getTime()
 	function na.kill()
+		local s=sound[na.sound.."-destroy"]
+		s[s.cursor]:setPosition(na.body:getX(),na.body:getY())
+		play(s[s.cursor])
+		s.cursor=s.cursor % table.getn(s) +1
+--		local x=na.body:getX()
+--		local y=na.body:getY()
+--		if camera.isVisible(x,y) then
+--			x,y=toRender(x,y)
+--			local o=na.body:getAngle()
+--			tileset:addEffect( 20, gid.animation[1].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
+--		end
 		na.body:destroy()
 		object[na.name..na.nbr]=nil
 	end

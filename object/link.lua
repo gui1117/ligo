@@ -8,6 +8,32 @@ function create.link(world,x,y,gid)
 	link.nbr=link.nbr+1
 	nl.nbr=link.nbr
 
+	if not sound["link-damage"] then
+		sound["link-damage"]={cursor=1}
+	end
+	for i=1,5 do
+		table.insert(sound["link-damage"],love.audio.newSource("sound/link-damage.ogg","static"))
+	end
+
+	if not sound["link-destroyed"] then
+		sound["link-destroyed"]={cursor=1}
+	end
+	table.insert(sound["link-destroyed"],love.audio.newSource("sound/link-destroyed.ogg","static"))
+
+	if not sound["link-elongate"] then
+		sound["link-elongate"]={cursor=1}
+	end
+	for i=1,5 do
+		table.insert(sound["link-elongate"],love.audio.newSource("sound/link-elongate.ogg","static"))
+	end
+
+	if not sound["link-retract"] then
+		sound["link-retract"]={cursor=1}
+	end
+	for i=1,5 do
+		table.insert(sound["link-retract"],love.audio.newSource("sound/link-retract.ogg","static"))
+	end
+
 	nl.anchor={}
 	nl.force=1000
 	nl.anchor[1]=tonumber(gid.anchor1) or 1
@@ -24,6 +50,11 @@ function create.link(world,x,y,gid)
 
 	nl.state="init"
 	local newnode=function(x,y)
+		local s=sound["link-elongate"]
+		s[s.cursor]:setPosition(x,y)
+		play(s[s.cursor])
+		s.cursor=s.cursor % table.getn(s) +1
+
 		local nn={}
 		nn.body=love.physics.newBody(world,x,y,"dynamic")
 		nn.body:setLinearDamping(nl.linearDamping)
@@ -36,11 +67,21 @@ function create.link(world,x,y,gid)
 		return nn
 	end
 	local destroyNode=function(n)
+		local s=sound["link-retract"]
+		s[s.cursor]:setPosition(n.body:getX(),n.body:getY())
+		play(s[s.cursor])
+		s.cursor=s.cursor % table.getn(s) +1
+
 		n.body:destroy()
 		n=nil
 	end
 
 	nl.unlink=function()
+		local s=sound["link-destroyed"]
+		s[s.cursor]:setPosition(love.audio.getPosition())
+		play(s[s.cursor])
+		s.cursor=s.cursor % table.getn(s) +1
+
 		for i,v in ipairs(nl.node) do
 			destroyNode(v)
 		end
@@ -60,6 +101,12 @@ function create.link(world,x,y,gid)
 			if n.hot then
 				for _,v in ipairs(n.beginContact) do
 					if v.other.makeDamage then
+						local x,y=love.audio.getPosition()
+						local s=sound["link-damage"]
+						s[s.cursor]:setPosition(x,y)
+						play(s[s.cursor])
+						s.cursor=s.cursor % table.getn(s) +1
+
 						v.other.makeDamage(nl.damage)
 					end
 				end

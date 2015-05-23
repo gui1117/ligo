@@ -167,10 +167,10 @@ function menuState:enable()
 			local w,h,f=love.window.getMode()
 			local dir=love.filesystem.getSaveDirectory()
 			if not love.filesystem.exists(dir) then
-				love.filesystem.write("valdmor.conf","")
+				love.filesystem.write("ligo.conf","")
 			end
 		print(dir)
-			persistence.store(dir.."/valdmor.conf",keymap,w,h,f)
+			persistence.store(dir.."/ligo.conf",keymap,w,h,f)
 		end
 		},
 		{name=function()
@@ -241,14 +241,14 @@ function menuState:enable()
 		current=1,
 		{map="map1-1",sound="Ambiance2"},
 		{map="map1-2",sound="Ambiance2"},
-		{map="map1-3",sound="Ambiance2"}
+		{map="map1-3",sound="Ambiance2"},
 --		{map="map",sound="Sideways"},
 --		{map="map2-1",sound="Ambiance2"},
 --		{map="map2-2",sound="Ambiance2"},
 --		{map="map3-1",sound="Sideways"},
 ---		{map="map3-2",sound="Sideways"},
 --		{map="map3-3",sound="Sideways"},
---		{map="test",sound="Ambiance"}
+		{map="test",sound="Ambiance"}
 	}
 	mapButton={
 		escape=function()
@@ -631,7 +631,7 @@ end
 
 --Draw
 function menuState:draw()
-	love.graphics.printf("Valdmor",love.window.getWidth()/2,love.window.getHeight()/3,0,"center",0,5,5)
+	love.graphics.printf("Ligo",love.window.getWidth()/2,love.window.getHeight()/3,0,"center",0,5,5)
 	local b=""
 	local p=""
 

@@ -55,6 +55,10 @@ It uses tiled as said above. There are two kind of tilelayer : the interpreted a
     * **time** : number : time the arrow survive in second
     * **damage** : number : amount of damage
     * **guided** : false or true : if the arrow is guided to the closest character
+    * **sound** : string
+      * destroy : "string-destroy.ogg" when destroyed 
+    * **animation** :
+      * 1 : tile effect of dying
   * **arrowslit** :
     * **rate** : number : time between shoots in second
     * **angularVelocity** : velocity in degree per second
@@ -65,6 +69,8 @@ It uses tiled as said above. There are two kind of tilelayer : the interpreted a
     * **initTime** : set time at beginning
     * **angle..** : angles of shoot
     * **aim** : boolean : if it follow de closest character or not
+    * **sound** : string
+      * shoot 
     * **animation** :
       * 1 : tile of engine
       * 2 : gid of the arrow
@@ -76,14 +82,26 @@ It uses tiled as said above. There are two kind of tilelayer : the interpreted a
       * 2 : animation of character running
     * **player** : number of the player ( 1..4 )
   * **generator** :
+    * **prespawn** : fraction where prespawn
     * **animation** :
-      * 1 generator tile
-      * 2 monster gid
+      * 1 generator waiting tile
+      * 2 generator prespawn tile 
+      * 3 monster gid
     * **rate** : number of second between generations
     * **newtime** : time at beginning
     * **spawn** : number of place = 4, 8 or 16
     * **salvo** : number of monster to spawn at each generations
     * **distance** : the distance minimal to active the generator
+    * **sound** : string
+      * walk
+      * run
+      * damaged
+      * phantom
+      * resurrection
+      * link
+      * heal
+      * die
+      * restart
   * **interface** : 
     * **animation** :
       * 1 life point tile
@@ -91,14 +109,32 @@ It uses tiled as said above. There are two kind of tilelayer : the interpreted a
   * **link** :
     * **anchor1** : number of the first player tied
     * **anchor2** : number of the second player tied
-  * **wall** : no arguments
-  * **pike** : animation
-    * 1 : tile pike down
-    * 2 : tile pike up
+    * **animation** :
+      * 1 : link
+      * 2 : hotlink
+    * **sound** :
+      * damage
+      * destroyed
+      * elongate
+      * retract
+  * **wall** : 
+    * **sound** :
+      * character
+  * **pike** : 
+    * **animation** :
+      * 1 : tile pike down
+      * 2 : tile pike up
+    * **sound** :
+      * declench
+      * up
   * **redmonster** : 
     * **animation** :
       * 1 staying
       * 2 running
+    * **sound** :
+      * run
+      * die
+      * damage
     * **velocity** : relative to characterVelocity
     * **velocityTime** : time to reach 0.95 * velocity
     * **shape** : circle or rectangle
@@ -110,6 +146,8 @@ It uses tiled as said above. There are two kind of tilelayer : the interpreted a
     * **searchTime** : time between pathfinder
     * **distance** : distance of character to wake up
   * **fin** : move to the next map in mapList
+    * **sound** :
+      * fin
 
 ### drawned
 * name mustn't be *objet*
