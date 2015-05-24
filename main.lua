@@ -1,6 +1,6 @@
 version=0.3
 gdebug=""
-trueTimeCoef=0.5
+trueTimeCoef=1
 timeCoef=1/trueTimeCoef
 sound={}
 

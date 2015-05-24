@@ -6,10 +6,8 @@ camera.cy = 0
 camera.scaleX = 0.3
 camera.scaleY = 0.3
 camera.rotation = 0
-camera.tileinwidth=35
-camera.tileinheight=35
-camera.tilewidth=16
-camera.tileheight=16
+camera.tileinwidth=100
+camera.tileinheight=100
 camera.scaleFactor=1
 
 function create.camera(world,x,y,gid)
@@ -80,6 +78,7 @@ function camera:update()
 	end
 	local w=love.graphics.getWidth()
 	local h=love.graphics.getHeight()
+	tiolved.setResolution(w,h)
 	local m=math.max(w,h)/500*camera.scaleFactor
 	camera.scaleX=1/m
 	camera.scaleY=1/m
@@ -91,14 +90,16 @@ function camera:update()
 	end
 	camera.cx=camera.cx/n
 	camera.cy=camera.cy/n
+	tiolved.setPosition(camera.cx,camera.cy)
 	love.audio.setPosition(camera.cx,camera.cy)
 	local cx,cy=toRender(camera.cx,camera.cy)
 	local wx=love.window.getWidth()*camera.scaleX
 	local wy=love.window.getHeight()*camera.scaleY
+	tiolved.setResolution(wx,wy)
 	camera:setX(cx-wx/2)
 	camera:setY(cy-wy/2)
-	camera.tileinwidth=wx/camera.tilewidth
-	camera.tileinheight=wx/camera.tileheight
+	camera.tileinwidth=wx/tiolved.tileWidth
+	camera.tileinheight=wx/tiolved.tileHeight
 end
 
 function camera.isVisible(x,y)

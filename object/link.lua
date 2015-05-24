@@ -47,6 +47,7 @@ function create.link(world,x,y,gid)
 	nl.density=0
 	nl.hot=3 --  >=1
 	nl.damage=1
+	--nl.gap
 
 	nl.state="init"
 	local newnode=function(x,y)

@@ -22,16 +22,16 @@ function create.redmonster(world,x,y,gid)
 
 	if not sound[nrm.sound.."-die"] then
 		sound[nrm.sound.."-die"]={cursor=1}
-	for i=1,5 do
-		table.insert(sound[nrm.sound.."-die"],initsource(love.audio.newSource("sound/"..nrm.sound.."-die.ogg","static")))
-	end
+		for i=1,5 do
+			table.insert(sound[nrm.sound.."-die"],initsource(love.audio.newSource("sound/"..nrm.sound.."-die.ogg","static")))
+		end
 	end
 
 	if not sound[nrm.sound.."-damage"] then
 		sound[nrm.sound.."-damage"]={cursor=1}
-	for i=1,5 do
-		table.insert(sound[nrm.sound.."-damage"],initsource(love.audio.newSource("sound/"..nrm.sound.."-damage.ogg","static")))
-	end
+		for i=1,5 do
+			table.insert(sound[nrm.sound.."-damage"],initsource(love.audio.newSource("sound/"..nrm.sound.."-damage.ogg","static")))
+		end
 	end
 
 	initRedmonsterCarac(nrm,world,x,y,gid)
@@ -117,6 +117,7 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 				nrm.state="searching"
 			end
 		elseif nrm.state=="hunting" then
+			sound[nrm.sound.."-run"][nrm.nbr]:setPosition(nrm.body:getPosition())
 			if nrm.currentnode then 
 				local a=angleOfVector(nrm.body:getX(),nrm.body:getY(),nrm.currentnode.x-1/2,nrm.currentnode.y-1/2)
 				nrm.body:setAngle(a)
@@ -156,6 +157,7 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 		end
 	end
 	function nrm.kill()
+		sound[nrm.sound.."-run"][nrm.nbr]:stop()
 		local s=sound[nrm.sound.."-die"]
 		s[s.cursor]:setPosition(nrm.body:getX(),nrm.body:getY())
 		s[s.cursor]:play()

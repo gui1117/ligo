@@ -1,5 +1,24 @@
 tiolved={}
 
+tiolved.x=0
+tiolved.y=0
+tiolved.width=0 --number of tile to draw in width
+tiolved.height=0 -- in height
+tiolved.tileWidth=0 
+tiolved.tileHeight=0
+
+-- position of point center of what will be drawn
+function tiolved.setPosition(x,y)
+	tiolved.x=x
+	tiolved.y=y
+end
+
+-- resolution of the screen
+function tiolved.setResolution(x,y)
+	tiolved.width=x/tiolved.tileWidth
+	tiolved.height=y/tiolved.tileHeight
+end
+
 -- array of table that contain
 -- canvas of the tile
 -- properties
@@ -7,6 +26,12 @@ tiolved={}
 -- animation : array of {tileid,duration}
 -- I use it locally to gather information
 function tiolved.gid(map,rep)
+	-- affectation of global tiolved attribute 
+	tiolved.width=tonumber(map.width)
+	tiolved.height=tonumber(map.height)
+	tiolved.tileWidth=tonumber(map.tilewidth)
+	tiolved.tileHeight=tonumber(map.tileheight)
+	tiolved.setPosition(tiolved.width*tiolved.tileWidth/2,tiolved.height*tiolved.tileHeight/2)
 	-- save the previous blendmode because tile are drawned in "replace" mode in orderto keep alpha and note having a mixe with black
 	local previousblendmode=love.graphics.getBlendMode()
 	love.graphics.setBlendMode("replace")
@@ -211,12 +236,9 @@ function tiolved.layers(map,tileset)
 
 			-- function to insert tiles of the layer in tileset.batch
 			function layer.draw()
-				-- need the position of the camera
-				-- and the number of tile in height and in width
-				-- in order not to draw all tile
-				local cx,cy=camera.cx,camera.cy
-				for j=math.floor(cy-camera.tileinheight/2),math.ceil(cy+camera.tileinheight/2) do
-					for i=math.floor(cx-camera.tileinwidth/2),math.ceil(cx+camera.tileinwidth/2) do
+				local cx,cy=tiolved.x,tiolved.y
+				for j=math.floor(cy-tiolved.height/2),math.ceil(cy+tiolved.height/2) do
+					for i=math.floor(cx-tiolved.width/2),math.ceil(cx+tiolved.width/2) do
 						local v=layer.tile[i+j*map.width]
 						if v then
 							tileset:add(layer.z,v.id,v.x,v.y)
