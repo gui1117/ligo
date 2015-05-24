@@ -119,13 +119,15 @@ end
 -- with 3 methods :
 -- update(dt) : change the canvas of animated tile
 -- add( z, id, x, y, z, .. , kx, ky) : add a sprite in batch[z][id]
--- add effect
+-- addEffect
 -- draw() : draw and clear all spritebatch
 function tiolved.tileset(gid,map)
 	local tileset={
 		animated={},
 		batch={},
-		z={}
+		z={},
+		effect={},
+		relation={}
 	}
 	for i,g in ipairs(gid) do
 		if g.animation then
@@ -141,6 +143,7 @@ function tiolved.tileset(gid,map)
 			if anim[1] then
 				anim.nexttime=anim[1].duration
 				table.insert(tileset.animated,anim)
+				tileset.relation[i]=table.getn(tileset.animated)
 				tileset[i]=anim[1].canvas
 			else
 				tileset[i]=g.canvas
@@ -149,11 +152,11 @@ function tiolved.tileset(gid,map)
 			tileset[i]=g.canvas
 		end
 	end
-	local time=0
+	tileset.time=0
 	function tileset:update(dt)
-		time=time+dt
+		self.time=self.time+dt
 		for _,t in ipairs(self.animated) do
-			while time >= t.nexttime do
+			while self.time >= t.nexttime do
 				t.nexttime=t.nexttime+t[t.current].duration
 				t.current=t.current % table.getn(t) + 1
 				t.canvas=t[t.current].canvas
@@ -164,10 +167,46 @@ function tiolved.tileset(gid,map)
 				end
 			end
 		end
+		for _,v in pairs(self.effect) do
+			for i,t in pairs(v) do
+				while self.time >= t.nexttime do
+					t.current=t.current + 1
+					if t.current>table.getn(self.animated[t.anim]) then
+						v[i]=nil
+						break
+					else
+						t.nexttime=t.nexttime+self.animated[t.anim][t.current].duration
+					end
+				end
+			end
+		end
+
 	end
+	local nbr=0
+	function tileset:addEffect(z,id,x,y,r,sx,sy,ox,oy,kx,ky)
+		if self.relation[id] then
+			if not self.effect[z] then
+				self.effect[z]={}
+				self.batch[z]={}
+				table.insert(self.z,z)
+				table.sort(self.z)
+			end
+			nbr=nbr+1
+			self.effect[z][nbr]={
+				nbr=nbr,
+				z=z,id=id,r=r,x=x,y=y,sx=sx,sy=sy,ox=ox,oy=oy,kx=kx,ky=ky,
+				current=1,
+				anim=self.relation[id]
+			}
+			local s=self.effect[z][nbr]
+			s.nexttime=self.animated[s.anim][1].duration+self.time
+		end
+	end
+
 	local size=map.width*map.height
 	function tileset:add(z,id,x, y, r, sx, sy, ox, oy, kx, ky )
 		if not self.batch[z] then 
+			self.effect[z]={}
 			self.batch[z]={} 
 			table.insert(self.z,z)
 			table.sort(self.z)
@@ -180,6 +219,9 @@ function tiolved.tileset(gid,map)
 			for _,k in pairs(self.batch[v]) do
 				love.graphics.draw(k,0,0)
 				k:clear()
+			end
+			for _,k in pairs(self.effect[v]) do
+				love.graphics.draw(self.animated[k.anim].canvas,k.x,k.y,k.r,k.sx,k.sy,k.ox,k.oy,k.kx,k.ky)
 			end
 		end
 	end

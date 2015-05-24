@@ -4,7 +4,7 @@ require "tool.function"
 -- physic value :
 -- configurable value :
 character={
-	velocity=14, -- max velocity
+	velocity=10, -- max velocity
 	stop=0.1, -- time to stop
 	walkfactor=1.5,
 	shape="circle", 
@@ -103,9 +103,11 @@ function create.character( world, x, y, gid)
 		local x,y=toRender( character[p].body:getX(), character[p].body:getY())
 		local o=character[p].body:getAngle()
 		if norme(character[p].body:getLinearVelocity())<character.velocity*0.05 then
-			tileset:add( 30, gid.animation[1].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
+--			tileset:add( 30, gid.animation[1].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
+			tileset:addEffect(30,gid.animation[2].tileid,x,y,o, 1,1,toRender(1/2,1/2))
 		else
-			tileset:add( 30, gid.animation[2].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
+--			tileset:add( 30, gid.animation[2].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
+			tileset:addEffect(30,gid.animation[2].tileid,x,y,o, 1,1,toRender(1/2,1/2))
 		end
 	end
 
