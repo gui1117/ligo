@@ -2,6 +2,7 @@ version=0.3
 gdebug=""
 trueTimeCoef=1
 timeCoef=1/trueTimeCoef
+musicVolume=1
 sound={}
 
 --Libraries
@@ -25,6 +26,10 @@ function love.load()
 		left=love.keyboard.getKeyFromScancode("left"),
 		right=love.keyboard.getKeyFromScancode("right"),
 		walk=love.keyboard.getKeyFromScancode("lctrl"),
+		buttonUp="nil",
+		buttonDown="nil",
+		buttonLeft="nil",
+		buttonRight="nil",
 		joystick="no joystick",
 		button="nil",
 		hat="nil",
@@ -41,6 +46,11 @@ function love.load()
 		left=love.keyboard.getKeyFromScancode("a"),
 		right=love.keyboard.getKeyFromScancode("d"),
 		walk=love.keyboard.getKeyFromScancode("lshift"),
+		buttonUp="nil",
+		buttonDown="nil",
+		buttonLeft="nil",
+		buttonRight="nil",
+
 		joystick="no joystick",
 		button="nil",
 		hat="nil",
@@ -57,6 +67,11 @@ function love.load()
 		left=love.keyboard.getKeyFromScancode("a"),
 		right=love.keyboard.getKeyFromScancode("d"),
 		walk=love.keyboard.getKeyFromScancode("lshift"),
+		buttonUp="nil",
+		buttonDown="nil",
+		buttonLeft="nil",
+		buttonRight="nil",
+
 		joystick="no joystick",
 		button="nil",
 		hat="nil",
@@ -73,6 +88,11 @@ function love.load()
 		left=love.keyboard.getKeyFromScancode("a"),
 		right=love.keyboard.getKeyFromScancode("d"),
 		walk=love.keyboard.getKeyFromScancode("lshift"),
+		buttonUp="nil",
+		buttonDown="nil",
+		buttonLeft="nil",
+		buttonRight="nil",
+
 		joystick="no joystick",
 		button="nil",
 		hat="nil",
@@ -81,9 +101,11 @@ function love.load()
 		vAxis="nil",
 		vAxisDirection=1
 	}
-	if love.filesystem.exists("valdmor.conf") then
+	if love.filesystem.exists("ligo.conf") then
 		local dir=love.filesystem.getSaveDirectory()
-		keymap,w,h,f=persistence.load(dir.."/valdmor.conf") 
+		local w,h,f,v
+		keymap,w,h,f,v,musicVolume=persistence.load(dir.."/ligo.conf") 
+		love.audio.setVolume(v)
 		love.window.setMode(w,h,f)
 	else
 		for p=1,4 do

@@ -56,7 +56,7 @@ end
 
 --Draw
 function pauseState:draw()
-	love.graphics.print("Pause, press space to resume", 64, 64)
+	love.graphics.print("Pause, press space to resume\nPress escape to quit", 64, 64)
 end
 
 --KeyPressed

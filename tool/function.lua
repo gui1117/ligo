@@ -26,3 +26,13 @@ function initsource(source)
 	source:setRolloff(2)
 	return source
 end
+
+
+
+function math.round(val, decimal)
+	decimal=decimal or 1
+	local exp = decimal and 10^decimal or 1
+	return math.ceil(val * exp - 0.5) / exp
+end
+
+

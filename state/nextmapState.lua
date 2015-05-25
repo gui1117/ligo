@@ -27,12 +27,17 @@ function nextmapState:enable()
 	if nextmap and mapList.current~=table.getn(mapList) then
 		mapList.current=mapList.current+1
 	end
-	if mapList[mapList.current].sound~=musicname then
-		musicname=mapList[mapList.current].sound
-		music=nil
-		music=love.audio.newSource("sound/"..musicname..".mp3","stream")
-		music:setLooping(true)
+	if nextmap  then
+		musicList.current=musicList.current%table.getn(musicList)+1
 	end
+	musicname=musicList[musicList.current]
+	if music then
+		music:stop()
+		music=nil
+	end
+	music=love.audio.newSource("sound/"..musicname..".mp3","stream")
+	music:setLooping(true)
+	music:setVolume(musicVolume)
 	music:play()
 	nextmap=false
 		

@@ -103,11 +103,9 @@ function create.character( world, x, y, gid)
 		local x,y=toRender( character[p].body:getX(), character[p].body:getY())
 		local o=character[p].body:getAngle()
 		if norme(character[p].body:getLinearVelocity())<character.velocity*0.05 then
---			tileset:add( 30, gid.animation[1].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
-			tileset:addEffect(30,gid.animation[2].tileid,x,y,o, 1,1,toRender(1/2,1/2))
+			tileset:add( 30, gid.animation[1].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
 		else
---			tileset:add( 30, gid.animation[2].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
-			tileset:addEffect(30,gid.animation[2].tileid,x,y,o, 1,1,toRender(1/2,1/2))
+			tileset:add( 30, gid.animation[2].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
 		end
 	end
 
@@ -207,6 +205,21 @@ function create.character( world, x, y, gid)
 				character[p].body:applyForce(character.moveForce,0)
 			end
 			if love.keyboard.isDown(keymap[p].left) then
+				character[p].body:applyForce(-character.moveForce,0)
+			end
+		end
+	elseif keymap[p].type=="button" then
+		input=function()
+			if love.keyboard.isDown(keymap[p].buttonUp) then
+				character[p].body:applyForce(0,-character.moveForce)
+			end
+			if love.keyboard.isDown(keymap[p].buttonDown) then
+				character[p].body:applyForce(0,character.moveForce)
+			end
+			if love.keyboard.isDown(keymap[p].buttonRight) then
+				character[p].body:applyForce(character.moveForce,0)
+			end
+			if love.keyboard.isDown(keymap[p].buttonLeft) then
 				character[p].body:applyForce(-character.moveForce,0)
 			end
 		end

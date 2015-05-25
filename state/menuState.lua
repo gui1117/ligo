@@ -17,6 +17,7 @@ end
 --Load
 function menuState:load()
 	titletheme=love.audio.newSource("sound/Lappel-8-bit.mp3","stream")
+	titletheme:setVolume(musicVolume)
 	selectsound=love.audio.newSource("sound/selectButton.ogg","static")
 	changesound=love.audio.newSource("sound/changeButton.ogg","static")
 end
@@ -37,7 +38,7 @@ function menuState:enable()
 		end,
 		enter=function()
 			buttonPress=1
-			currentButton=mapButton
+			currentButton=levelButton
 		end},
 		{name=function()
 			return "manual"
@@ -86,12 +87,57 @@ function menuState:enable()
 			currentButton=menuButton
 		end,
 		{name=function()
-			return "set input"
+			return "input"
 		end,
 		enter=function()
 			buttonPress=1
 			currentButton=settingInput
 		end},
+		{name=function()
+			return "video"
+		end,
+		enter=function()
+			buttonPress=1
+			currentButton=settingVideo
+		end},
+		{name=function()
+			return "sound"
+		end,
+		enter=function()
+			buttonPress=1
+			currentButton=settingSound
+		end},
+		{name=function() return "save configuration" end,
+		enter=function()
+			local w,h,f=love.window.getMode()
+			local dir=love.filesystem.getSaveDirectory()
+			if not love.filesystem.exists(dir) then
+				love.filesystem.write("ligo.conf","")
+			end
+			persistence.store(dir.."/ligo.conf",keymap,w,h,f,love.audio.getVolume(),musicVolume)
+		end
+		},
+		{name=function() return "reset configuration" end,
+		enter=function()
+			local dir=love.filesystem.getSaveDirectory()
+			if love.filesystem.exists(dir) and love.filesystem.exists(dir.."/ligo.conf") then
+				love.filesystem.remove(dir.."/ligo.conf")
+
+			end
+		end},
+		{name=function()
+			return "return"
+		end,
+		enter=function()
+			buttonPress=1
+			currentButton=menuButton
+		end}
+	}
+	settingVideo={
+		escape=function()
+			buttonPress=1
+			currentButton=settingButton
+		end,
 		{name=function()
 			if love.window.getFullscreen() then
 				return "unset fullscreen" 
@@ -162,25 +208,52 @@ function menuState:enable()
 --			f.sync=not f.vsync
 --			love.window.setMode(w,h,f)
 --		end},
-		{name=function() return "save configuration" end,
-		enter=function()
-			local w,h,f=love.window.getMode()
-			local dir=love.filesystem.getSaveDirectory()
-			if not love.filesystem.exists(dir) then
-				love.filesystem.write("ligo.conf","")
-			end
-		print(dir)
-			persistence.store(dir.."/ligo.conf",keymap,w,h,f)
-		end
-		},
+		--name=fsaa
 		{name=function()
 			return "return"
 		end,
 		enter=function()
 			buttonPress=1
-			currentButton=menuButton
-		end}    
-		--name=fsaa
+			currentButton=settingButton
+		end}
+	}
+	settingSound={
+		escape=function()
+			buttonPress=1
+
+			currentButton=settingButton
+		end,
+		{name=function()
+			return "master volume "..math.round(20*love.audio.getVolume())/20
+		end,
+		left=function()
+			local s=math.round(20*love.audio.getVolume())/20
+			print(s-0.05)
+			love.audio.setVolume(math.max(0,s-0.05))
+		end,
+		right=function()
+			local s=math.round(20*love.audio.getVolume())/20
+			print(s+0.05)
+			love.audio.setVolume(math.min(1,s+0.05))
+		end},
+		{name=function()
+			return "music volume "..musicVolume
+		end,
+		left=function()
+			musicVolume=math.max(0,musicVolume-0.05)
+			titletheme:setVolume(musicVolume)
+		end,
+		right=function()
+			musicVolume=math.min(1,musicVolume+0.05)
+			titletheme:setVolume(musicVolume)
+		end},
+		{name=function()
+			return "return"
+		end,
+		enter=function()
+			buttonPress=1
+			currentButton=settingButton
+		end}
 	}
 	settingInput={
 		escape=function()
@@ -239,18 +312,16 @@ function menuState:enable()
 	}
 	mapList={
 		current=1,
-		{map="map1-1",sound="Ambiance2"},
-		{map="map1-2",sound="Ambiance2"},
-		{map="map1-3",sound="Ambiance2"},
---		{map="map",sound="Sideways"},
---		{map="map2-1",sound="Ambiance2"},
---		{map="map2-2",sound="Ambiance2"},
---		{map="map3-1",sound="Sideways"},
----		{map="map3-2",sound="Sideways"},
---		{map="map3-3",sound="Sideways"},
-		{map="test",sound="Ambiance"}
+		"test",
+		"map1-1"
 	}
-	mapButton={
+	musicList={
+		current=1,
+		"Ambiance",
+		"Ambiance2",
+		"Sideways"
+	}
+	levelButton={
 		escape=function()
 			buttonPress=1
 			currentButton=menuButton
@@ -263,7 +334,12 @@ function menuState:enable()
 			enableState("nextmap")
 		end},
 		{name=function()
-			return "map : "..mapList[mapList.current].map
+			return "level : not available"
+		end,
+		enter=function()
+		end},
+		{name=function()
+			return "map : "..mapList[mapList.current]
 		end,
 		right=function()
 			mapList.current=mapList.current % table.getn(mapList) + 1
@@ -273,6 +349,36 @@ function menuState:enable()
 			if mapList.current==0 then
 				mapList.current=table.getn(mapList)
 			end
+		end},
+		{name=function()
+			return "music : "..musicList[musicList.current]
+		end,
+		right=function()
+			musicList.current=musicList.current % table.getn(musicList) + 1
+		end,
+		left=function()
+			musicList.current=musicList.current -1
+			if musicList.current==0 then
+				musicList.current=table.getn(musicList)
+			end
+		end},
+		{name=function()
+			return "character velocity : "..character.velocity
+		end,
+		right=function()
+			character.velocity=math.ceil(10*character.velocity*1.1)/10
+		end,
+		left=function()
+			character.velocity=math.floor(10*character.velocity*0.9)/10
+		end},
+		{name=function()
+			return "time coefficient : "..timeCoef
+		end,
+		right=function()
+			timeCoef=math.ceil(10*timeCoef*1.1)/10
+		end,
+		left=function()
+			timeCoef=math.floor(10*timeCoef*0.9)/10
 		end},
 		{name=function()
 			return "return"
@@ -289,8 +395,7 @@ function menuState:enable()
 			currentButton=menuButton
 		end,
 		{name=function()
-			local k=keymap
-			return k.up..","..k.down..","..k.right..","..k.left.." <-- move\nspace <-- jump\nleft shift <-- walk\nmouse <-- aim\n+/- <-- volume"
+			return "run in two dimension\nwalk by holding a key\n\nwhen you die you become a phantom that can rebirth by touching a character alive\n\nlink is reset between player when touching, it is constituted of two part a hazardous one and a safe one."
 		end},
 		{name=function()
 			return "return"
@@ -313,20 +418,27 @@ function menuState:enable()
 				keymap[playerSetting].type="hat"
 			elseif keymap[playerSetting].type=="hat" then
 				keymap[playerSetting].type="axis"
+			elseif keymap[playerSetting].type=="axis" then
+				keymap[playerSetting].type="button"
 			else
 				keymap[playerSetting].type="keyboard"
 			end
 		end,
 		left=function()
 			if keymap[playerSetting].type=="keyboard" then
-				keymap[playerSetting].type="axis"
+				keymap[playerSetting].type="button"
 			elseif keymap[playerSetting].type=="hat" then
 				keymap[playerSetting].type="keyboard"
-			else
+			elseif keymap[playerSetting].type=="axis" then
 				keymap[playerSetting].type="hat"
+			else
+				keymap[playerSetting].type="axis"
 			end
-
-		end},
+		end,
+		keyboard=true,
+		hat=true,
+		button=true,
+		axis=true},
 		{name=function()
 			return "up : "..keymap[playerSetting].up or "nil"
 		end,
@@ -336,7 +448,10 @@ function menuState:enable()
 			function changeKey(key)
 				keymap[playerSetting].up=key
 			end
-		end},
+		end,
+		keyboard=true,
+		hat=false,
+		axis=false},
 		{name=function()
 			return "down : "..keymap[playerSetting].down or "nil"
 		end,
@@ -346,7 +461,10 @@ function menuState:enable()
 			function changeKey(key)
 				keymap[playerSetting].down=key
 			end
-		end},
+		end,
+		keyboard=true,
+		hat=false,
+		axis=false},
 		{name=function()
 			return "left : "..keymap[playerSetting].left
 		end,
@@ -356,7 +474,10 @@ function menuState:enable()
 			function changeKey(key)
 				keymap[playerSetting].left=key
 			end
-		end},
+		end,
+		keyboard=true,
+		hat=false,
+		axis=false},
 		{name=function()
 			return "right : "..keymap[playerSetting].right
 		end,
@@ -366,7 +487,10 @@ function menuState:enable()
 			function changeKey(key)
 				keymap[playerSetting].right=key
 			end
-		end},
+		end,
+		keyboard=true,
+		hat=false,
+		axis=false},
 		{name=function()
 			return "walk : "..keymap[playerSetting].walk
 		end,
@@ -376,7 +500,10 @@ function menuState:enable()
 			function changeKey(key)
 				keymap[playerSetting].walk=key
 			end
-		end},
+		end,
+		keyboard=true,
+		hat=false,
+		axis=false},
 		{name=function()
 			return "joystick : "..keymap[playerSetting].joystick
 		end,
@@ -411,7 +538,130 @@ function menuState:enable()
 				j_id=(j_id-2) % love.joystick.getJoystickCount() +1
 				keymap[playerSetting].joystick=js[j_id]:getName()
 			end
-		end},
+		end,
+		keyboard=false,
+		hat=true,
+		axis=true},
+		{name=function()
+			return "up pad button : "..keymap[playerSetting].buttonUp
+		end,
+		enter=function()
+			if love.joystick.getJoystickCount()==0 then
+				keymap[playerSetting].joystick="no joystick"
+			else
+				local js=love.joystick.getJoysticks()
+				local j_id=false
+				for i,v in ipairs(js) do
+					if v:getName()==keymap[playerSetting].joystick then
+						j_id=i
+					end
+				end
+				if not j_id then keymap[playerSetting].joystick=js[1]:getName()
+				else
+					local j=js[j_id]
+					askButton=true
+					keymap[playerSetting].buttonUp=" new button "
+					function changeButton(button)
+						keymap[playerSetting].buttonUp=button
+					end
+				end
+			end
+		end,
+		keyboard=false,
+		hat=false,
+		button=true,
+		axis=false},
+		{name=function()
+			return "down pad button : "..keymap[playerSetting].buttonDown
+		end,
+		enter=function()
+			if love.joystick.getJoystickCount()==0 then
+				keymap[playerSetting].joystick="no joystick"
+			else
+				local js=love.joystick.getJoysticks()
+				local j_id=false
+				for i,v in ipairs(js) do
+					if v:getName()==keymap[playerSetting].joystick then
+						j_id=i
+					end
+				end
+				if not j_id then keymap[playerSetting].joystick=js[1]:getName()
+				else
+					local j=js[j_id]
+					askButton=true
+					keymap[playerSetting].buttonDown=" new button "
+					function changeButton(button)
+						keymap[playerSetting].buttonDown=button
+					end
+				end
+			end
+		end,
+		keyboard=false,
+		hat=false,
+		button=true,
+		axis=false},
+
+		{name=function()
+			return "left pad button : "..keymap[playerSetting].buttonLeft
+		end,
+		enter=function()
+			if love.joystick.getJoystickCount()==0 then
+				keymap[playerSetting].joystick="no joystick"
+			else
+				local js=love.joystick.getJoysticks()
+				local j_id=false
+				for i,v in ipairs(js) do
+					if v:getName()==keymap[playerSetting].joystick then
+						j_id=i
+					end
+				end
+				if not j_id then keymap[playerSetting].joystick=js[1]:getName()
+				else
+					local j=js[j_id]
+					askButton=true
+					keymap[playerSetting].buttonLeft=" new button "
+					function changeButton(button)
+						keymap[playerSetting].buttonLeft=button
+					end
+				end
+			end
+		end,
+		keyboard=false,
+		hat=false,
+		button=true,
+		axis=false},
+
+		{name=function()
+			return "right pad button : "..keymap[playerSetting].buttonRight
+		end,
+		enter=function()
+			if love.joystick.getJoystickCount()==0 then
+				keymap[playerSetting].joystick="no joystick"
+			else
+				local js=love.joystick.getJoysticks()
+				local j_id=false
+				for i,v in ipairs(js) do
+					if v:getName()==keymap[playerSetting].joystick then
+						j_id=i
+					end
+				end
+				if not j_id then keymap[playerSetting].joystick=js[1]:getName()
+				else
+					local j=js[j_id]
+					askButton=true
+					keymap[playerSetting].buttonRight=" new button "
+					function changeButton(button)
+						keymap[playerSetting].buttonRight=button
+					end
+				end
+			end
+		end,
+		keyboard=false,
+		hat=false,
+		button=true,
+		axis=false},
+
+
 		{name=function()
 			return "hat number "..keymap[playerSetting].hat
 		end,
@@ -462,7 +712,10 @@ function menuState:enable()
 					keymap[playerSetting].hat="nil"
 				end
 			end
-		end},
+		end,
+		keyboard=false,
+		hat=true,
+		axis=false},
 		{name=function()
 			return "vAxis number "..keymap[playerSetting].vAxis
 		end,
@@ -513,7 +766,10 @@ function menuState:enable()
 					keymap[playerSetting].vAxis="nil"
 				end
 			end
-		end},
+		end,
+		keyboard=false,
+		hat=false,
+		axis=true},
 		{name=function()
 			return "vAxisDirection : "..keymap[playerSetting].vAxisDirection
 		end,
@@ -570,7 +826,10 @@ function menuState:enable()
 					keymap[playerSetting].hAxis="nil"
 				end
 			end
-		end},
+		end,
+		keyboard=false,
+		hat=false,
+		axis=true},
 		{name=function()
 			return "hAxisDirection : "..keymap[playerSetting].hAxisDirection
 		end,
@@ -601,14 +860,22 @@ function menuState:enable()
 					end
 				end
 			end
-		end},
+		end,
+		keyboard=false,
+		hat=true,
+		button=true,
+		axis=true},
 		{name=function()
 			return "return"
 		end,
 		enter=function()
 			buttonPress=1
 			currentButton=settingInput
-		end}
+		end,
+		button=true,
+		keyboard=true,
+		hat=true,
+		axis=true},
 	}
 
 	currentButton=menuButton
@@ -635,42 +902,49 @@ function menuState:draw()
 	local b=""
 	local p=""
 
+	if currentButton==playerInput then
 	local joysticks=love.joystick.getJoysticks()
 	for _,j in ipairs(joysticks) do
-		p=p..j:getName().."\n"
-		p=p..j:getAxisCount().." axis\n"
+		p=p.."joystick : "..j:getName().."\n"
+		p=p..j:getAxisCount().." axis : \n"
 		for a=1,j:getAxisCount() do
-			p=p..j:getAxis(a).."\n"
+			p=p.." * "..j:getAxis(a).."\n"
 		end
-		p=p..j:getHatCount().." hat\n"
+		p=p..j:getHatCount().." hat : \n"
 		for a=1,j:getHatCount() do
-			p=p..j:getHat(a).."\n"
+			p=p.." * "..j:getHat(a).."\n"
 		end
-		p=p.."button down :\n"
+		p=p.."button down : \n"
 		for i=1,100 do
 			if j:isDown(i) then
-				p=p..i.."\n"
+				p=p.." * "..i.."\n"
 			end
 		end
+		p=p.."\n\n"
+	end
 	end
 
 	for i,v in ipairs(currentButton) do
+		local mes=v.name()
+		if currentButton==playerInput and not v[keymap[playerSetting].type] then
+			mes="( "..mes.." )"
+		end
 		if buttonPress==i then
-			local len=string.len(v.name())
+			local len=string.len(mes)
 			b=b.."\n"
 			for i=1,len do
 				b=b.."="
 			end
-			b=b.."\n|| "..v.name().." ||\n"
+			b=b.."\n|| "..mes.." ||\n"
 			for i=1,len do
 				b=b.."="
 			end
 		else
-			b=b.."\n"..v.name()
+			b=b.."\n"..mes
 		end
 	end
 	love.graphics.printf(b,love.window.getWidth()/2,love.window.getHeight()/2,250,"center",0,1,1,125,0)
-	love.graphics.printf(p,love.window.getWidth()/2.3,love.window.getHeight()/2,250,"left",0,1,1,125,0)
+	love.graphics.printf(p,love.window.getWidth()/3,love.window.getHeight()/4,150,"left",0,1,1,75,0)
 end
 
 --KeyPressed

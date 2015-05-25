@@ -25,7 +25,7 @@ function gameState:load()
 	world=love.physics.newWorld(0,0,true)
 	world:setCallbacks(beginContact,endContact, preSolve, postSolve)
 	love.physics.setMeter(1)
-	initmap(mapList[mapList.current].map)
+	initmap(mapList[mapList.current])
 end
 
 --Close

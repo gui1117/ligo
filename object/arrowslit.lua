@@ -69,8 +69,6 @@ function create.arrowslit(world, x, y, gid, mapgid)
 	end
 	--init update
 	if nas.aim then
-		nas.body:setAngularDamping(10)
-		local torque=2
 		aim=function()
 			nas.body:setPosition(x-1/2,y-1/2)
 			local oa=nas.body:getAngle()
@@ -80,13 +78,8 @@ function create.arrowslit(world, x, y, gid, mapgid)
 			if i then
 				local xc,yc=character[i].body:getPosition()
 				noa=angleOfVector(xa,ya,xc,yc)
-			else
 			end
-			if (oa-noa)%(2*math.pi) < math.pi then
-				nas.body:applyTorque(-torque)
-			else
-				nas.body:applyTorque(torque)
-			end
+			nas.body:setAngle(noa)
 		end
 	elseif nas.angularvelocity~=0 then
 		-- maybe setAngle instead of setAngularVelocity
