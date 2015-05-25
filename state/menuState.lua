@@ -880,6 +880,10 @@ function menuState:enable()
 
 	currentButton=menuButton
 	buttonPress=1
+
+--	pattern=" .--..--.\n/ .. \\.. \\\n\\ \\/\\ \\/ /\n \\/ /\\/ /\n / /\\/ /\\\n/ /\\ \\/\\ \\\n\\ \\/\\ \\/ /\n \\/ /\\/ /\n / /\\/ /\\\n/ /\\ \\/\\ \\\n\\ \\/\\ \\/ /\n \\/ /\\/ /\n / /\\/ /\\\n/ /\\ \\/\\ \\\n\\ \\/\\ \\/ /\n \\/ /\\/ /\n / /\\/ /\\\n/ /\\ \\/\\ \\\n\\ \\/\\ \\/ /\n \\/ /\\/ /\n / /\\/ /\\\n/ /\\ \\/\\ \\\n\\ `'\\ `' /\n `--'`--'\n"
+	local f=love.graphics.getFont()
+	f:setFilter("linear","linear",8)
 end
 	
 
@@ -898,7 +902,7 @@ end
 
 --Draw
 function menuState:draw()
-	love.graphics.printf("Ligo",love.window.getWidth()/2,love.window.getHeight()/3,0,"center",0,5,5)
+	love.graphics.printf("Ligo",love.window.getWidth()/2,love.window.getHeight()/4,0,"center",0,10,9)
 	local b=""
 	local p=""
 
@@ -945,6 +949,8 @@ function menuState:draw()
 	end
 	love.graphics.printf(b,love.window.getWidth()/2,love.window.getHeight()/2,250,"center",0,1,1,125,0)
 	love.graphics.printf(p,love.window.getWidth()/3,love.window.getHeight()/4,150,"left",0,1,1,75,0)
+--	love.graphics.printf(pattern,love.window.getWidth()/8,love.window.getHeight()/15,150,"center",0,3,2,75,0)
+--	love.graphics.printf(pattern,love.window.getWidth()*7/8,love.window.getHeight()/15,150,"center",0,3,2,75,0)
 end
 
 --KeyPressed
