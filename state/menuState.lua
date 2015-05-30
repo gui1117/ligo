@@ -884,6 +884,7 @@ function menuState:enable()
 --	pattern=" .--..--.\n/ .. \\.. \\\n\\ \\/\\ \\/ /\n \\/ /\\/ /\n / /\\/ /\\\n/ /\\ \\/\\ \\\n\\ \\/\\ \\/ /\n \\/ /\\/ /\n / /\\/ /\\\n/ /\\ \\/\\ \\\n\\ \\/\\ \\/ /\n \\/ /\\/ /\n / /\\/ /\\\n/ /\\ \\/\\ \\\n\\ \\/\\ \\/ /\n \\/ /\\/ /\n / /\\/ /\\\n/ /\\ \\/\\ \\\n\\ \\/\\ \\/ /\n \\/ /\\/ /\n / /\\/ /\\\n/ /\\ \\/\\ \\\n\\ `'\\ `' /\n `--'`--'\n"
 	local f=love.graphics.getFont()
 	f:setFilter("linear","linear",8)
+	
 end
 	
 
@@ -903,6 +904,7 @@ end
 --Draw
 function menuState:draw()
 	love.graphics.printf("Ligo",love.window.getWidth()/2,love.window.getHeight()/4,0,"center",0,10,9)
+	--love.graphics.printf(pattern,love.window.getWidth()/2,love.window.getHeight()/4,250,"center",0,1,1,125,0)
 	local b=""
 	local p=""
 
