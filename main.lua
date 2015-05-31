@@ -15,6 +15,7 @@ require "state.gameState"
 require "state.menuState"
 require "state.pauseState"
 require "state.nextmapState"
+require "state.pictureState"
 
 function love.load()
 	keymap={}

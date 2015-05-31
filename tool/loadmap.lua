@@ -2,7 +2,7 @@ require "tool.pathfinder"
 function initmap (mapname)
 	--timeCoef=1.5
 	map=nil
-	map=love.filesystem.load("map/"..mapname..".lua")() -- needed for pathfinding ( height and width )
+	map=love.filesystem.load("map/"..mapname)() -- needed for pathfinding ( height and width )
 	local gid=tiolved.gid(map,"map/")
 
 	tileset=tiolved.tileset(gid,map)
@@ -32,3 +32,23 @@ function initmap (mapname)
 	map=nil
 	collectgarbage()
 end
+
+function initmusic(name,loop)
+	if music then
+		music:stop()
+		music=nil
+	end
+	if name then
+		music=love.audio.newSource("sound/"..name,"stream")
+		music:setLooping(loop)
+		music:setVolume(musicVolume)
+		music:play()
+	end
+end
+
+function initconstant(level)
+	timecoef=level.timecoef or timecoef
+	charactervelocity=level.charactervelocity or charactervelocity
+end
+
+

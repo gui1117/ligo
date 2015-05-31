@@ -33,6 +33,25 @@ function pauseState:enable()
 			disableState(state._id)
 		end
 	end
+--		{name=function()
+--			return "character velocity : "..character.velocity
+--		end,
+--		right=function()
+--			character.velocity=math.ceil(10*character.velocity*1.1)/10
+--		end,
+--		left=function()
+--			character.velocity=math.floor(10*character.velocity*0.9)/10
+--		end},
+--		{name=function()
+--			return "time coefficient : "..timeCoef
+--		end,
+--		right=function()
+--			timeCoef=math.ceil(10*timeCoef*1.1)/10
+--		end,
+--		left=function()
+--			timeCoef=math.floor(10*timeCoef*0.9)/10
+--		end},
+
 end
 
 

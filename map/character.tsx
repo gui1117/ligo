@@ -63,6 +63,10 @@
   <properties>
    <property name="name" value="fin"/>
   </properties>
+  <animation>
+   <frame tileid="20" duration="0"/>
+   <frame tileid="21" duration="0"/>
+  </animation>
  </tile>
  <tile id="19">
   <properties>

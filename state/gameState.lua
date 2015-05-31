@@ -25,7 +25,10 @@ function gameState:load()
 	world=love.physics.newWorld(0,0,true)
 	world:setCallbacks(beginContact,endContact, preSolve, postSolve)
 	love.physics.setMeter(1)
-	initmap(mapList[mapList.current])
+	local dungeon=dungeonList[dungeonList.current]
+	initmusic(dungeon[dungeon.current].music,true)
+	initmap(dungeon[dungeon.current].map)
+	initconstant(dungeon[dungeon.current])
 end
 
 --Close
@@ -60,6 +63,11 @@ function gameState:update(dt)
 	end
 	camera:update()
 	tupdate=love.timer.getTime() - t
+	if endmap then
+		endmap=false
+		destroyState("game")
+		enableState("nextmap")
+	end
 end
 
 --Draw
@@ -151,6 +159,15 @@ function beginContact(a,b,coll)
 end
 
 function endContact(a, b, coll)
+	local ua=a:getUserData()
+	local ub=b:getUserData()
+
+	if ua.endContact then
+		table.insert(ua.endContact,{coll=coll,other=ub})
+	end
+	if ub.endContact then
+		table.insert(ub.endContact,{coll=coll,other=ua})
+	end
 end
 
 function preSolve(a, b, coll)

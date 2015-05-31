@@ -310,17 +310,21 @@ function menuState:enable()
 			currentButton=settingButton
 		end}    
 	}
-	mapList={
-		current=1,
-		"test",
-		"map1-1"
-	}
-	musicList={
-		current=1,
-		"Ambiance",
-		"Ambiance2",
-		"Sideways"
-	}
+	dungeonList={current=1}
+	sourceInsertDungeonList=function(name)
+		if string.find(name,".dungeon.lua") and not string.find(name,".swp") then
+			table.insert(dungeonList,love.filesystem.load("dungeon/"..name)())
+		end
+	end
+	userInsertDungeonList=function(name)
+		if string.find(name,".dungeon.lua") and not string.find(name,".swp") then
+			table.insert(dungeonList,love.filesystem.load(love.filesystem.getUserDirectory().."dungeon/"..name)())
+		end
+	end
+	love.filesystem.getDirectoryItems("dungeon",sourceInsertDungeonList)
+	if love.filesystem.exists(love.filesystem.getUserDirectory().."dungeon") then
+		love.filesystem.getDirectoryItems(love.filesystem.getUserDirectory().."dungeon",userInsertDungeonList)
+	end
 	levelButton={
 		escape=function()
 			buttonPress=1
@@ -334,51 +338,13 @@ function menuState:enable()
 			enableState("nextmap")
 		end},
 		{name=function()
-			return "level : not available"
-		end,
-		enter=function()
-		end},
-		{name=function()
-			return "map : "..mapList[mapList.current]
+			return "dungeon : "..dungeonList[dungeonList.current].name
 		end,
 		right=function()
-			mapList.current=mapList.current % table.getn(mapList) + 1
+			dungeonList.current=dungeonList.current%table.getn(dungeonList)+1
 		end,
 		left=function()
-			mapList.current=mapList.current -1
-			if mapList.current==0 then
-				mapList.current=table.getn(mapList)
-			end
-		end},
-		{name=function()
-			return "music : "..musicList[musicList.current]
-		end,
-		right=function()
-			musicList.current=musicList.current % table.getn(musicList) + 1
-		end,
-		left=function()
-			musicList.current=musicList.current -1
-			if musicList.current==0 then
-				musicList.current=table.getn(musicList)
-			end
-		end},
-		{name=function()
-			return "character velocity : "..character.velocity
-		end,
-		right=function()
-			character.velocity=math.ceil(10*character.velocity*1.1)/10
-		end,
-		left=function()
-			character.velocity=math.floor(10*character.velocity*0.9)/10
-		end},
-		{name=function()
-			return "time coefficient : "..timeCoef
-		end,
-		right=function()
-			timeCoef=math.ceil(10*timeCoef*1.1)/10
-		end,
-		left=function()
-			timeCoef=math.floor(10*timeCoef*0.9)/10
+			dungeonList.current=(dungeonList.current-2)%table.getn(dungeonList)+1
 		end},
 		{name=function()
 			return "return"
@@ -875,7 +841,7 @@ function menuState:enable()
 		button=true,
 		keyboard=true,
 		hat=true,
-		axis=true},
+		axis=true}
 	}
 
 	currentButton=menuButton
@@ -904,7 +870,7 @@ end
 --Draw
 function menuState:draw()
 	love.graphics.printf("Ligo",love.window.getWidth()/2,love.window.getHeight()/4,0,"center",0,10,9)
-	--love.graphics.printf(pattern,love.window.getWidth()/2,love.window.getHeight()/4,250,"center",0,1,1,125,0)
+	--love.graphics.print(pattern,love.window.getWidth()/2,love.window.getHeight()/4)
 	local b=""
 	local p=""
 

@@ -24,24 +24,18 @@ end
 
 --Enable
 function nextmapState:enable()
-	if nextmap and mapList.current~=table.getn(mapList) then
-		mapList.current=mapList.current+1
+	local dungeon=dungeonList[dungeonList.current]
+	dungeon.current=dungeon.current+1
+	if dungeon.current > table.getn(dungeon) then
+		enableState("menu")
+		return
 	end
-	if nextmap  then
-		musicList.current=musicList.current%table.getn(musicList)+1
+	local level=dungeon[dungeon.current]
+	if level.type == "picture" then
+		addState(pictureState,"game")
+	elseif level.type == "level" then
+		addState(gameState,"game")
 	end
-	musicname=musicList[musicList.current]
-	if music then
-		music:stop()
-		music=nil
-	end
-	music=love.audio.newSource("sound/"..musicname..".mp3","stream")
-	music:setLooping(true)
-	music:setVolume(musicVolume)
-	music:play()
-	nextmap=false
-		
-	addState(gameState,"game")
 end
 
 --Disable
