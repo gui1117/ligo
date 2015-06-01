@@ -19,7 +19,7 @@ return {
 	},
 	{
 		type="picture",
-		image="lapin_et_femme.jpg",
+		image="lapin_et_femme_Bosch.jpg",
 		music="picture.ogg"
 	},
 	{
@@ -36,7 +36,7 @@ return {
 	},
 	{
 		type="picture",
-		image="lapin_pendul.jpg",
+		image="lapin_pendul_Masaru_Shichinohe.jpg",
 		music="picture.ogg"
 	},
 	{
@@ -52,7 +52,7 @@ return {
 	},
 	{
 		type="picture",
-		image="lapin_fumee.jpg",
+		image="lapin_fumee_Gabriela_Messuti.jpg",
 		music="picture.ogg"
 	},
 	{

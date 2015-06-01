@@ -3,7 +3,7 @@
  <tileset firstgid="1" source="terrain.tsx"/>
  <tileset firstgid="64" source="character.tsx"/>
  <tileset firstgid="118" name="arrowslit" tilewidth="16" tileheight="16">
-  <image source="arrowslit.png" width="144" height="64"/>
+  <image source="arrowslit.png" width="144" height="128"/>
   <tile id="0">
    <properties>
     <property name="name" value="arrow"/>
@@ -162,7 +162,7 @@
    </animation>
   </tile>
  </tileset>
- <tileset firstgid="154" name="generator" tilewidth="16" tileheight="16">
+ <tileset firstgid="190" name="generator" tilewidth="16" tileheight="16">
   <image source="generator.png" width="144" height="80"/>
   <tile id="0">
    <properties>
@@ -42935,7 +42935,7 @@
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
-   <tile gid="154"/>
+   <tile gid="190"/>
    <tile gid="0"/>
    <tile gid="0"/>
    <tile gid="0"/>
