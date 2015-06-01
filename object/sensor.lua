@@ -8,6 +8,26 @@ function create.fin (world,x,y,gid)
 	fin.nbr=fin.nbr+1
 	nf.nbr=fin.nbr
 
+	nf.sound=gid.sound or "fin"
+	if not sound[nf.sound.."-0Activated"] then
+		sound[nf.sound.."-0Activated"]={cursor=1}
+		for i=1,2 do
+			table.insert(sound[nf.sound.."-0Activated"],initsource(love.audio.newSource("sound/"..nf.sound.."-0Activated.ogg","static")))
+		end
+	end
+	if not sound[nf.sound.."-1Activated"] then
+		sound[nf.sound.."-1Activated"]={cursor=1}
+		for i=1,2 do
+			table.insert(sound[nf.sound.."-1Activated"],initsource(love.audio.newSource("sound/"..nf.sound.."-1Activated.ogg","static")))
+		end
+	end
+	if not sound[nf.sound.."-2Activated"] then
+		sound[nf.sound.."-2Activated"]={cursor=1}
+		for i=1,2 do
+			table.insert(sound[nf.sound.."-2Activated"],initsource(love.audio.newSource("sound/"..nf.sound.."-2Activated.ogg","static")))
+		end
+	end
+
 	nf.beginContact={}
 	nf.endContact={}
 	nf.activated=0
@@ -17,17 +37,26 @@ function create.fin (world,x,y,gid)
 	nf.fixture:setUserData(nf)
 	setGroup(nf.fixture,"floor")
 	nf.update=function()
+		local s=false
 		for _,v in ipairs(nf.beginContact) do
 			if v.other.name == "character" then
 				nf.activated=nf.activated+1
+				s=sound[nf.sound.."-"..nf.activated.."Activated"]
 			end
 		end
 		nf.beginContact={}
 		for _,v in ipairs(nf.endContact) do
 			if v.other.name == "character" then
 				nf.activated=nf.activated-1
+				s=sound[nf.sound.."-"..nf.activated.."Activated"]
 			end
 		end
+		if s then
+			s[s.cursor]:setPosition(nf.body:getX(),nf.body:getY())
+			s[s.cursor]:play()
+			s.cursor=s.cursor % table.getn(s) +1
+		end
+
 		nf.endContact={}
 		if nf.activated==table.getn(character) then
 			endmap=true

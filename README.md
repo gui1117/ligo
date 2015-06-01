@@ -147,7 +147,9 @@ It uses tiled as said above. There are two kind of tilelayer : the interpreted a
     * **distance** : distance of character to wake up
   * **fin** : move to the next map in mapList
     * **sound** :
-      * fin
+      * 0Activated
+      * 1Activated
+      * 2Activated
 
 ### drawned
 * name mustn't be *objet*
