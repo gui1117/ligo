@@ -146,6 +146,7 @@ function create.link(world,x,y,gid)
 				else
 					local o=angleOfVector(character[a1].body:getX(),character[a1].body:getY(),nl.node[2].body:getX(),nl.node[2].body:getY())
 					nl.node[1].body:setPosition(character[a1].body:getX()+nl.distance*math.cos(o),character[a1].body:getY()+nl.distance*math.sin(o))
+					nl.node[1].body:setAngle(o)
 					cursor=cursor+1
 				end
 			end
@@ -179,6 +180,8 @@ function create.link(world,x,y,gid)
 					local x=(xip1-xi)+(xim1-xi)
 					local y=(yip1-yi)+(yim1-yi)
 					p[cursor].body:applyForce(x*nl.force,y*nl.force)
+					local o=angleOfVector(xip1,yip1,xim1,yim1)
+					p[cursor].body:setAngle(o)
 					cursor=cursor+1
 				end
 			end
@@ -186,6 +189,7 @@ function create.link(world,x,y,gid)
 			local n=table.getn(nl.node)
 			local o=angleOfVector(character[a2].body:getX(),character[a2].body:getY(),nl.node[n-1].body:getX(),nl.node[n-1].body:getY())
 			nl.node[n].body:setPosition(character[a2].body:getX()+nl.distance*math.cos(o),character[a2].body:getY()+nl.distance*math.sin(o))
+			nl.node[n].body:setAngle(o)
 		end
 	end
 
