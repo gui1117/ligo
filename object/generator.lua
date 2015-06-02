@@ -37,10 +37,18 @@ end
 
 function initGeneratorCarac(ng,world,x,y,gid,mapgid)
 	ng.prespawnCoef=tonumber(gid.prespawn) or 0.75
-	ng.rate=(tonumber(gid.rate) or 1)*timeCoef
+	ng.rate=(tonumber(gid.rate) or 4)*timeCoef
 	ng.timeToPrespawn=love.timer.getTime() + ng.rate*ng.prespawnCoef - (tonumber(gid.newtime) or 0)
 	ng.spawn={}
-	local nbr=tonumber(gid.spawn) or 4
+	ng.salvo=tonumber(gid.spawn) or 4
+	local nbr
+	if ng.salvo < 4 then
+		nbr=4
+	elseif ng.salvo < 8 then
+		nbr=8
+	else 
+		nbr=12
+	end
 	if nbr==4 or nbr==8 or nbr==12 then
 		table.insert(ng.spawn,{x=-1,y=0})
 		table.insert(ng.spawn,{x=1,y=0})
@@ -59,7 +67,6 @@ function initGeneratorCarac(ng,world,x,y,gid,mapgid)
 		table.insert(ng.spawn,{x=0,y=-2})
 		table.insert(ng.spawn,{x=0,y=2})
 	end
-	ng.salvo=tonumber(gid.salvo) or 4
 	ng.monstergid=mapgid[gid.animation[3].tileid]
 	ng.distance=tonumber(gid.distance) or 22
 end

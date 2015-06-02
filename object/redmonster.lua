@@ -42,16 +42,16 @@ function create.redmonster(world,x,y,gid)
 end
 
 function initRedmonsterCarac(nrm,world,x,y,gid)
-	nrm.velocity=(tonumber(gid.velocity) or 1)*character.velocity
+	nrm.velocity=(tonumber(gid.velocity) or 0.5)*character.velocity
 	nrm.velocityTime=tonumber(gid.velocityTime) or 0.0001
-	nrm.shape=gid.shape or "rectangle"
+	nrm.shape=gid.shape or "circle"
 	nrm.density=tonumber(gid.density) or 1
 	if nrm.shape=="rectangle" then
-		nrm.height=tonumber(gid.shape) or 1
-		nrm.width=tonumber(gid.width) or 1
+		nrm.height=tonumber(gid.shape) or 0.7
+		nrm.width=tonumber(gid.width) or 0.7
 		nrm.mass=nrm.height*nrm.width*nrm.density
 	elseif nrm.shape=="circle" then
-		nrm.radius=tonumber(gid.radius) or 0.5
+		nrm.radius=tonumber(gid.radius) or 0.35
 		nrm.mass=math.pow(nrm.radius,2)*math.pi*nrm.density
 	end
 	nrm.damage=tonumber(gid.damage) or 1	
@@ -157,6 +157,11 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 		end
 	end
 	function nrm.kill()
+		local x=nrm.body:getX()
+		local y=nrm.body:getY()
+		local x,y=toRender( x,y)
+		local o=nrm.body:getAngle()
+		tileset:addEffect( 10, gid.animation[3].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
 		sound[nrm.sound.."-run"][nrm.nbr]:stop()
 		local s=sound[nrm.sound.."-die"]
 		s[s.cursor]:setPosition(nrm.body:getX(),nrm.body:getY())

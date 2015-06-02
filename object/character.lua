@@ -103,9 +103,18 @@ function create.character( world, x, y, gid)
 		local x,y=toRender( character[p].body:getX(), character[p].body:getY())
 		local o=character[p].body:getAngle()
 		if norme(character[p].body:getLinearVelocity())<character.velocity*0.05 then
-			tileset:add( 30, gid.animation[1].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
+			if character[p].killed == false then
+				tileset:add( 30, gid.animation[1].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
+			else
+				tileset:add( 30, gid.animation[3].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
+			end
 		else
-			tileset:add( 30, gid.animation[2].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
+			if character[p].killed == false then
+				tileset:add( 30, gid.animation[2].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
+			else
+				tileset:add( 30, gid.animation[4].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
+			end
+
 		end
 	end
 
@@ -136,6 +145,11 @@ function create.character( world, x, y, gid)
 	character[p].update=function ()
 		for _,v in ipairs(character[p].beginContact) do
 			if v.other.name=="character" then
+				local ob = v.other.body
+				local x,y=ob:getPosition()
+				local x,y=toRender(x,y)
+				local o=ob:getAngle()
+				tileset:add( 10, gid.animation[5].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
 				if v.other.killed then
 					local s=sound["character-resurrection"]
 					s[p]:setPosition(cp.body:getX(),cp.body:getY())

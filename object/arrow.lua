@@ -47,13 +47,13 @@ function create.arrow(world,x,y,gid,a)
 		s[s.cursor]:setPosition(na.body:getX(),na.body:getY())
 		s[s.cursor]:play()
 		s.cursor=s.cursor % table.getn(s) +1
---		local x=na.body:getX()
---		local y=na.body:getY()
---		if camera.isVisible(x,y) then
---			x,y=toRender(x,y)
---			local o=na.body:getAngle()
---			tileset:addEffect( 20, gid.animation[1].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
---		end
+		local x=na.body:getX()
+		local y=na.body:getY()
+		if camera.isVisible(x,y) then
+			x,y=toRender(x,y)
+			local o=na.body:getAngle()
+			tileset:addEffect( 20, gid.animation[2].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
+		end
 		na.body:destroy()
 		object[na.name..na.nbr]=nil
 	end
@@ -101,7 +101,7 @@ function create.arrow(world,x,y,gid,a)
 		if camera.isVisible(x,y) then
 			x,y=toRender(x,y)
 			local o=na.body:getAngle()
-			tileset:add( 20, gid.id, x, y, o, 1, 1, toRender(1/2,1/2))
+			tileset:add( 20, gid.animation[1].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
 		end
 	end
 
