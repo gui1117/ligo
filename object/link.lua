@@ -12,26 +12,26 @@ function create.link(world,x,y,gid)
 		sound["link-damage"]={cursor=1}
 	end
 	for i=1,5 do
-		table.insert(sound["link-damage"],initsource(love.audio.newSource("sound/link-damage.ogg","static")))
+		table.insert(sound["link-damage"],initsource(love.audio.newSource(contentFile("sound/link-damage.ogg"),"static")))
 	end
 
 	if not sound["link-destroyed"] then
 		sound["link-destroyed"]={cursor=1}
 	end
-	table.insert(sound["link-destroyed"],initsource(love.audio.newSource("sound/link-destroyed.ogg","static")))
+	table.insert(sound["link-destroyed"],initsource(love.audio.newSource(contentFile("sound/link-destroyed.ogg"),"static")))
 
 	if not sound["link-elongate"] then
 		sound["link-elongate"]={cursor=1}
 	end
 	for i=1,5 do
-		table.insert(sound["link-elongate"],initsource(love.audio.newSource("sound/link-elongate.ogg","static")))
+		table.insert(sound["link-elongate"],initsource(love.audio.newSource(contentFile("sound/link-elongate.ogg"),"static")))
 	end
 
 	if not sound["link-retract"] then
 		sound["link-retract"]={cursor=1}
 	end
 	for i=1,5 do
-		table.insert(sound["link-retract"],initsource(love.audio.newSource("sound/link-retract.ogg","static")))
+		table.insert(sound["link-retract"],initsource(love.audio.newSource(contentFile("sound/link-retract.ogg"),"static")))
 	end
 
 	nl.anchor={}

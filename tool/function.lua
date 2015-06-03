@@ -36,3 +36,9 @@ function math.round(val, decimal)
 end
 
 
+function contentFile(name)
+	if love.filesystem.exists(userDir.."/"..name) then
+		return userDir.."/"..name
+	end
+	return name
+end

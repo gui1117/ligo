@@ -12,8 +12,8 @@ character={
 	lifemax=2,
 	density=1,
 	lifespeed=0,
-	sound="character"
-	--angularDamping=10
+	sound="character",
+	angularDamping=10
 }
 
 character.distance=character.radius*1.2
@@ -96,7 +96,7 @@ function create.character( world, x, y, gid)
 	character[p].fixture = love.physics.newFixture( character[p].body, character[p].shape, 1)
 	character[p].fixture:setUserData(character[p])
 	character[p].body:setLinearDamping(character.linearDamping)
-	--character.body:setAngularDamping(character.angularDamping)
+	character[p].body:setAngularDamping(character.angularDamping)
 	setGroup(character[p].fixture,"hero")
 
 	character[p].draw=function ()
@@ -149,7 +149,7 @@ function create.character( world, x, y, gid)
 				local x,y=ob:getPosition()
 				local x,y=toRender(x,y)
 				local o=ob:getAngle()
-				tileset:add( 10, gid.animation[5].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
+				tileset:addEffect( 15, gid.animation[5].tileid, x, y, o, 1, 1, toRender(1/2,1/2))
 				if v.other.killed then
 					local s=sound["character-resurrection"]
 					s[p]:setPosition(cp.body:getX(),cp.body:getY())
@@ -209,32 +209,50 @@ function create.character( world, x, y, gid)
 
 	if keymap[p].type=="keyboard" then
 		input=function()
+			local ox=0
+			local oy=0
 			if love.keyboard.isDown(keymap[p].up) then
 				character[p].body:applyForce(0,-character.moveForce)
+				oy=oy-1
 			end
 			if love.keyboard.isDown(keymap[p].down) then
 				character[p].body:applyForce(0,character.moveForce)
+				oy=oy+1
 			end
 			if love.keyboard.isDown(keymap[p].right) then
 				character[p].body:applyForce(character.moveForce,0)
+				ox=ox+1
 			end
 			if love.keyboard.isDown(keymap[p].left) then
 				character[p].body:applyForce(-character.moveForce,0)
+				ox=ox-1
+			end
+			if ox~=0 and oy~=0 then
+				character[p].body:setAngle(angleOfPoint({x=ox,y=oy}))
 			end
 		end
 	elseif keymap[p].type=="button" then
 		input=function()
+			local ox=0
+			local oy=0
 			if love.keyboard.isDown(keymap[p].buttonUp) then
 				character[p].body:applyForce(0,-character.moveForce)
+				oy=oy-1
 			end
 			if love.keyboard.isDown(keymap[p].buttonDown) then
 				character[p].body:applyForce(0,character.moveForce)
+				oy=oy+1
 			end
 			if love.keyboard.isDown(keymap[p].buttonRight) then
 				character[p].body:applyForce(character.moveForce,0)
+				ox=ox+1
 			end
 			if love.keyboard.isDown(keymap[p].buttonLeft) then
 				character[p].body:applyForce(-character.moveForce,0)
+				ox=ox-1
+			end
+			if ox~=0 and oy~=0 then
+				character[p].body:setAngle(angleOfPoint({x=ox,y=oy}))
 			end
 		end
 	elseif keymap[p].type=="hat"  then
@@ -248,17 +266,26 @@ function create.character( world, x, y, gid)
 		if joystick then
 			input=function()
 				local dir=joystick:getHat(keymap[p].hat)
+				local ox=0
+				local oy=0
 				if dir=="u" or dir=="ru" or dir=="lu" then
 					character[p].body:applyForce(0,-character.moveForce)
+					oy=oy-1
 				end
 				if dir=="d" or dir=="rd" or dir=="ld" then
 					character[p].body:applyForce(0,character.moveForce)
+					oy=oy+1
 				end
 				if dir=="r" or dir=="rd" or dir=="ru" then
 					character[p].body:applyForce(character.moveForce,0)
+					ox=ox+1
 				end
 				if dir=="l" or dir=="ld" or dir=="lu" then
 					character[p].body:applyForce(-character.moveForce,0)
+					ox=ox-1
+				end
+				if ox~=0 and oy~=0 then
+					character[p].body:setAngle(angleOfPoint({x=ox,y=oy}))
 				end
 			end
 		end
@@ -275,6 +302,9 @@ function create.character( world, x, y, gid)
 				local x=joystick:getAxis(keymap[p].hAxis)*keymap[p].hAxisDirection*character.moveForce
 				local y=joystick:getAxis(keymap[p].vAxis)*keymap[p].vAxisDirection*character.moveForce
 				character[p].body:applyForce(x,y)
+				if x~=0 and y~=0 then
+					character[p].body:setAngle(angleOfPoint({x=x,y=y}))
+				end
 			end
 		end
 	end

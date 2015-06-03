@@ -1,4 +1,5 @@
 require "object.character"
+
 arrow={}
 arrow.nbr=0
 
@@ -11,7 +12,7 @@ function create.arrow(world,x,y,gid,a)
 	if not sound[na.sound.."-destroy"] then
 		sound[na.sound.."-destroy"]={cursor=1}
 		for i=1,20 do
-			table.insert(sound[na.sound.."-destroy"],initsource(love.audio.newSource("sound/"..na.sound.."-destroy.ogg","static")))
+			table.insert(sound[na.sound.."-destroy"],initsource(love.audio.newSource(contentFile("sound/"..na.sound.."-destroy.ogg"),"static")))
 		end
 	end
 

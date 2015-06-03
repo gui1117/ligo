@@ -16,21 +16,21 @@ function create.redmonster(world,x,y,gid)
 	if not sound[nrm.sound.."-run"] then
 		sound[nrm.sound.."-run"]={cursor=1}
 	end
-	local tmp=initsource(love.audio.newSource("sound/"..nrm.sound.."-run.ogg","static"))
+	local tmp=initsource(love.audio.newSource(contentFile("sound/"..nrm.sound.."-run.ogg"),"static"))
 	tmp:setLooping("true")
 	sound[nrm.sound.."-run"][nrm.nbr]=tmp
 
 	if not sound[nrm.sound.."-die"] then
 		sound[nrm.sound.."-die"]={cursor=1}
 		for i=1,5 do
-			table.insert(sound[nrm.sound.."-die"],initsource(love.audio.newSource("sound/"..nrm.sound.."-die.ogg","static")))
+			table.insert(sound[nrm.sound.."-die"],initsource(love.audio.newSource(contentFile("sound/"..nrm.sound.."-die.ogg"),"static")))
 		end
 	end
 
 	if not sound[nrm.sound.."-damage"] then
 		sound[nrm.sound.."-damage"]={cursor=1}
 		for i=1,5 do
-			table.insert(sound[nrm.sound.."-damage"],initsource(love.audio.newSource("sound/"..nrm.sound.."-damage.ogg","static")))
+			table.insert(sound[nrm.sound.."-damage"],initsource(love.audio.newSource(contentFile("sound/"..nrm.sound.."-damage.ogg"),"static")))
 		end
 	end
 

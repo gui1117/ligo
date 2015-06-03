@@ -12,19 +12,19 @@ function create.fin (world,x,y,gid)
 	if not sound[nf.sound.."-0Activated"] then
 		sound[nf.sound.."-0Activated"]={cursor=1}
 		for i=1,2 do
-			table.insert(sound[nf.sound.."-0Activated"],initsource(love.audio.newSource("sound/"..nf.sound.."-0Activated.ogg","static")))
+			table.insert(sound[nf.sound.."-0Activated"],initsource(love.audio.newSource(contentFile("sound/"..nf.sound.."-0Activated.ogg"),"static")))
 		end
 	end
 	if not sound[nf.sound.."-1Activated"] then
 		sound[nf.sound.."-1Activated"]={cursor=1}
 		for i=1,2 do
-			table.insert(sound[nf.sound.."-1Activated"],initsource(love.audio.newSource("sound/"..nf.sound.."-1Activated.ogg","static")))
+			table.insert(sound[nf.sound.."-1Activated"],initsource(love.audio.newSource(contentFile("sound/"..nf.sound.."-1Activated.ogg"),"static")))
 		end
 	end
 	if not sound[nf.sound.."-2Activated"] then
 		sound[nf.sound.."-2Activated"]={cursor=1}
 		for i=1,2 do
-			table.insert(sound[nf.sound.."-2Activated"],initsource(love.audio.newSource("sound/"..nf.sound.."-2Activated.ogg","static")))
+			table.insert(sound[nf.sound.."-2Activated"],initsource(love.audio.newSource(contentFile("sound/"..nf.sound.."-2Activated.ogg"),"static")))
 		end
 	end
 
@@ -32,7 +32,7 @@ function create.fin (world,x,y,gid)
 	nf.endContact={}
 	nf.activated=0
 	nf.body=love.physics.newBody(world,x-1/2,y-1/2,"static")
-	nf.shape=love.physics.newRectangleShape(0.7,0.7)
+	nf.shape=love.physics.newRectangleShape(1,1)
 	nf.fixture=love.physics.newFixture(nf.body,nf.shape)
 	nf.fixture:setUserData(nf)
 	setGroup(nf.fixture,"floor")

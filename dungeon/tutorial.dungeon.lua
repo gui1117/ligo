@@ -14,8 +14,6 @@ return {
 		type="level",
 		map="tutorial_1.lua",
 		music="Sideways.mp3",
-		timecoef=1,
-		charactervelocity=10
 	},
 	{
 		type="picture",
@@ -31,8 +29,6 @@ return {
 		type="level",
 		map="tutorial_2.lua",
 		music="Sideways.mp3",
-		timecoef=1,
-		charactervelocity=10
 	},
 	{
 		type="picture",
@@ -47,8 +43,6 @@ return {
 		type="level",
 		map="tutorial_3.lua",
 		music="Sideways.mp3",
-		timecoef=1,
-		charactervelocity=10
 	},
 	{
 		type="picture",

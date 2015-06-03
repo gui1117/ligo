@@ -1,5 +1,3 @@
---Example of a GameState file
-
 --Table
 nextmapState = {}
 

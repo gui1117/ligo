@@ -1,6 +1,83 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <map version="1.0" orientation="orthogonal" renderorder="right-down" width="20" height="20" tilewidth="16" tileheight="16" nextobjectid="1">
- <tileset firstgid="1" source="terrain.tsx"/>
+ <tileset firstgid="1" name="terrain" tilewidth="16" tileheight="16">
+  <image source="terrain.png" width="144" height="112"/>
+  <terraintypes>
+   <terrain name="sol" tile="0"/>
+   <terrain name="mur" tile="5"/>
+  </terraintypes>
+  <tile id="0" terrain="0,0,0,0"/>
+  <tile id="1" terrain="1,1,1,1"/>
+  <tile id="2" terrain="1,0,1,0">
+   <properties>
+    <property name="name" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="3" terrain="0,1,0,1">
+   <properties>
+    <property name="name" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="4" terrain="0,0,1,1">
+   <properties>
+    <property name="name" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="5" terrain="1,1,0,0">
+   <properties>
+    <property name="name" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="9" terrain="1,1,1,0">
+   <properties>
+    <property name="name" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="10" terrain="1,1,0,1">
+   <properties>
+    <property name="name" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="11" terrain="1,0,1,1">
+   <properties>
+    <property name="name" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="12" terrain="0,1,1,1">
+   <properties>
+    <property name="name" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="13" terrain="0,0,0,1">
+   <properties>
+    <property name="name" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="14" terrain="0,0,1,0">
+   <properties>
+    <property name="name" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="15" terrain="0,1,0,0">
+   <properties>
+    <property name="name" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="16" terrain="1,0,0,0">
+   <properties>
+    <property name="name" value="wall"/>
+   </properties>
+  </tile>
+  <tile id="54">
+   <properties>
+    <property name="name" value="pike"/>
+   </properties>
+   <animation>
+    <frame tileid="55" duration="0"/>
+    <frame tileid="56" duration="0"/>
+   </animation>
+  </tile>
+ </tileset>
  <layer name="regions" width="20" height="20">
   <data>
    <tile gid="1"/>
@@ -405,7 +482,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="input_sol" width="20" height="20">
+ <layer name="input_floor" width="20" height="20">
   <data>
    <tile gid="10"/>
    <tile gid="0"/>
@@ -809,7 +886,7 @@
    <tile gid="0"/>
   </data>
  </layer>
- <layer name="output_objet" width="20" height="20">
+ <layer name="output_wall" width="20" height="20">
   <data>
    <tile gid="10"/>
    <tile gid="0"/>

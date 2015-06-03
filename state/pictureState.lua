@@ -24,7 +24,11 @@ function pictureState:load()
 		music=nil
 	end
 	if level.image then
-		image=love.graphics.newImage("image/"..level.image)
+		if love.filesystem.exists(userDir.."image/"..level.image) then
+			image=love.graphics.newImage(userDir.."image/"..level.image)
+		elseif love.filesystem.exists("image/"..level.image) then
+			image=love.graphics.newImage("image/"..level.image)
+		end
 	end
 end
 

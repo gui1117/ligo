@@ -228,12 +228,10 @@ function menuState:enable()
 		end,
 		left=function()
 			local s=math.round(20*love.audio.getVolume())/20
-			print(s-0.05)
 			love.audio.setVolume(math.max(0,s-0.05))
 		end,
 		right=function()
 			local s=math.round(20*love.audio.getVolume())/20
-			print(s+0.05)
 			love.audio.setVolume(math.min(1,s+0.05))
 		end},
 		{name=function()
@@ -345,6 +343,24 @@ function menuState:enable()
 		end,
 		left=function()
 			dungeonList.current=(dungeonList.current-2)%table.getn(dungeonList)+1
+		end},
+		{name=function()
+			return "time multiplicator coefficient : "..timeCoef.." [1]"
+		end,
+		right=function()
+			timeCoef=timeCoef+0.1
+		end,
+		left=function()
+			timeCoef=timeCoef-0.1
+		end},
+		{name=function()
+			return "character velocity: "..character.velocity.." [10]"
+		end,
+		right=function()
+			character.velocity=character.velocity+0.5
+		end,
+		left=function()
+			character.velocity=character.velocity-0.5
 		end},
 		{name=function()
 			return "return"

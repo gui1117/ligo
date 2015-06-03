@@ -17,13 +17,13 @@ function create.generator(world, x, y, gid, mapgid)
 	if not sound[ng.sound.."-spawn"] then
 		sound[ng.sound.."-spawn"]={cursor=1}
 		for i=1,20 do
-			table.insert(sound[ng.sound.."-spawn"],initsource(love.audio.newSource("sound/"..ng.sound.."-spawn.ogg","static")))
+			table.insert(sound[ng.sound.."-spawn"],initsource(love.audio.newSource(contentFile("sound/"..ng.sound.."-spawn.ogg"),"static")))
 		end
 	end
 	if not sound[ng.sound.."-prespawn"] then
 		sound[ng.sound.."-prespawn"]={cursor=1}
 		for i=1,20 do
-			table.insert(sound[ng.sound.."-prespawn"],initsource(love.audio.newSource("sound/"..ng.sound.."-prespawn.ogg","static")))
+			table.insert(sound[ng.sound.."-prespawn"],initsource(love.audio.newSource(contentFile("sound/"..ng.sound.."-prespawn.ogg"),"static")))
 		end
 	end
 

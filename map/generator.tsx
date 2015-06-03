@@ -6,6 +6,7 @@
    <property name="name" value="generator"/>
   </properties>
   <animation>
+   <frame tileid="4" duration="100"/>
    <frame tileid="5" duration="0"/>
    <frame tileid="9" duration="0"/>
   </animation>
@@ -44,6 +45,7 @@
   <animation>
    <frame tileid="27" duration="0"/>
    <frame tileid="18" duration="0"/>
+   <frame tileid="14" duration="0"/>
   </animation>
  </tile>
  <tile id="10">
@@ -72,6 +74,14 @@
   <animation>
    <frame tileid="30" duration="0"/>
    <frame tileid="21" duration="0"/>
+  </animation>
+ </tile>
+ <tile id="14">
+  <animation>
+   <frame tileid="14" duration="100"/>
+   <frame tileid="23" duration="100"/>
+   <frame tileid="32" duration="100"/>
+   <frame tileid="41" duration="100"/>
   </animation>
  </tile>
  <tile id="18">

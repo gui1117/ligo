@@ -10,7 +10,7 @@ function initmap (mapname)
 
 	local toremove={}
 	for i,v in ipairs (map.layers) do
-		if v.name=="objet" then
+		if v.name=="wall" or v.name=="object" then
 			for k,vjk in ipairs (v.data) do
 				if vjk~=0 then
 					local g=gid[vjk]
@@ -39,10 +39,16 @@ function initmusic(name,loop)
 		music=nil
 	end
 	if name then
-		music=love.audio.newSource("sound/"..name,"stream")
-		music:setLooping(loop)
-		music:setVolume(musicVolume)
-		music:play()
+		if love.filesystem.exists(userDir.."sound/"..name) then
+			music=love.audio.newSource(userDir.."sound/"..name,"stream")
+		elseif love.filesystem.exists("sound/"..name) then
+			music=love.audio.newSource("sound/"..name,"stream")
+		end
+		if music then
+			music:setLooping(loop)
+			music:setVolume(musicVolume)
+			music:play()
+		end
 	end
 end
 

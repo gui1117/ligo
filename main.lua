@@ -5,6 +5,8 @@ timeCoef=1/trueTimeCoef
 musicVolume=1
 sound={}
 
+userDir=love.filesystem.getUserDirectory()
+
 --Libraries
 require "lib.stateManager"
 require "lib.lovelyMoon"
@@ -116,16 +118,15 @@ function love.load()
 		end
 	end
 	love.graphics.setDefaultFilter("nearest","nearest")
-	-- keyboard disable repeating key
+	-- keyboard disable repeating key don't seem to work
 	love.keyboard:setKeyRepeat(false)
 
 	love.audio.setDistanceModel("linear clamped")
-	--Add Gamestates Here
+
 	addState(menuState, "menu")
 	addState(pauseState, "pause")
 	addState(nextmapState, "nextmap")
 
-	--Remember to Enable your mestates!
 	enableState("menu")
 end
 
