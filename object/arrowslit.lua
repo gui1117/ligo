@@ -85,7 +85,7 @@ function create.arrowslit(world, x, y, gid, mapgid)
 		-- maybe setAngle instead of setAngularVelocity
 		local av=nas.angularVelocity
 		aim=function()
-			nas.body:setAngularVelocity(av)
+			nas.body:setAngle(love.timer.getTime()*av)
 			nas.body:setPosition(x-1/2,y-1/2)
 		end
 	end

@@ -28,19 +28,19 @@
    <property name="player" value="1"/>
   </properties>
   <animation>
-   <frame tileid="11" duration="0"/>
+   <frame tileid="13" duration="0"/>
    <frame tileid="10" duration="0"/>
    <frame tileid="38" duration="0"/>
    <frame tileid="37" duration="0"/>
-   <frame tileid="37" duration="100"/>
+   <frame tileid="49" duration="0"/>
   </animation>
  </tile>
  <tile id="10">
   <animation>
-   <frame tileid="11" duration="100"/>
    <frame tileid="10" duration="100"/>
    <frame tileid="11" duration="100"/>
    <frame tileid="12" duration="100"/>
+   <frame tileid="11" duration="100"/>
   </animation>
  </tile>
  <tile id="18">
@@ -71,7 +71,7 @@
    <frame tileid="28" duration="0"/>
    <frame tileid="38" duration="0"/>
    <frame tileid="37" duration="0"/>
-   <frame tileid="37" duration="100"/>
+   <frame tileid="49" duration="100"/>
   </animation>
  </tile>
  <tile id="28">
@@ -92,10 +92,9 @@
  </tile>
  <tile id="49">
   <animation>
-   <frame tileid="45" duration="3000"/>
-   <frame tileid="46" duration="300"/>
-   <frame tileid="47" duration="300"/>
-   <frame tileid="48" duration="300"/>
+   <frame tileid="46" duration="100"/>
+   <frame tileid="47" duration="100"/>
+   <frame tileid="48" duration="100"/>
   </animation>
  </tile>
 </tileset>

@@ -23,8 +23,10 @@ function initmap (mapname)
 			table.insert(toremove,i)
 		end
 	end
+	local dv=0
 	for _,v in ipairs(toremove) do
-		table.remove(map.layers,v)
+		table.remove(map.layers,v-dv)
+		dv=dv+1
 	end
 
 	layers=tiolved.layers(map,tileset)

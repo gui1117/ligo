@@ -16,6 +16,7 @@
    <property name="name" value="generator"/>
   </properties>
   <animation>
+   <frame tileid="4" duration="100"/>
    <frame tileid="6" duration="0"/>
    <frame tileid="10" duration="0"/>
   </animation>
@@ -25,6 +26,7 @@
    <property name="name" value="generator"/>
   </properties>
   <animation>
+   <frame tileid="4" duration="100"/>
    <frame tileid="7" duration="0"/>
    <frame tileid="11" duration="0"/>
   </animation>
@@ -34,6 +36,7 @@
    <property name="name" value="generator"/>
   </properties>
   <animation>
+   <frame tileid="4" duration="100"/>
    <frame tileid="8" duration="0"/>
    <frame tileid="12" duration="0"/>
   </animation>
@@ -55,6 +58,7 @@
   <animation>
    <frame tileid="28" duration="0"/>
    <frame tileid="19" duration="0"/>
+   <frame tileid="15" duration="0"/>
   </animation>
  </tile>
  <tile id="11">
@@ -64,6 +68,7 @@
   <animation>
    <frame tileid="29" duration="0"/>
    <frame tileid="20" duration="0"/>
+   <frame tileid="16" duration="0"/>
   </animation>
  </tile>
  <tile id="12">
@@ -74,6 +79,7 @@
   <animation>
    <frame tileid="30" duration="0"/>
    <frame tileid="21" duration="0"/>
+   <frame tileid="17" duration="0"/>
   </animation>
  </tile>
  <tile id="14">
@@ -82,6 +88,30 @@
    <frame tileid="23" duration="100"/>
    <frame tileid="32" duration="100"/>
    <frame tileid="41" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="15">
+  <animation>
+   <frame tileid="15" duration="100"/>
+   <frame tileid="24" duration="100"/>
+   <frame tileid="33" duration="100"/>
+   <frame tileid="42" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="16">
+  <animation>
+   <frame tileid="16" duration="100"/>
+   <frame tileid="25" duration="100"/>
+   <frame tileid="34" duration="100"/>
+   <frame tileid="43" duration="100"/>
+  </animation>
+ </tile>
+ <tile id="17">
+  <animation>
+   <frame tileid="17" duration="100"/>
+   <frame tileid="26" duration="100"/>
+   <frame tileid="35" duration="100"/>
+   <frame tileid="44" duration="100"/>
   </animation>
  </tile>
  <tile id="18">

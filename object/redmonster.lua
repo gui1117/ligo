@@ -47,11 +47,11 @@ function initRedmonsterCarac(nrm,world,x,y,gid)
 	nrm.shape=gid.shape or "circle"
 	nrm.density=tonumber(gid.density) or 1
 	if nrm.shape=="rectangle" then
-		nrm.height=tonumber(gid.shape) or 0.7
-		nrm.width=tonumber(gid.width) or 0.7
+		nrm.height=tonumber(gid.shape) or 0.5
+		nrm.width=tonumber(gid.width) or 0.5
 		nrm.mass=nrm.height*nrm.width*nrm.density
 	elseif nrm.shape=="circle" then
-		nrm.radius=tonumber(gid.radius) or 0.35
+		nrm.radius=tonumber(gid.radius) or 0.25
 		nrm.mass=math.pow(nrm.radius,2)*math.pi*nrm.density
 	end
 	nrm.damage=tonumber(gid.damage) or 1	
@@ -119,7 +119,7 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 		elseif nrm.state=="hunting" then
 			sound[nrm.sound.."-run"][nrm.nbr]:setPosition(nrm.body:getPosition())
 			if nrm.currentnode then 
-				local a=angleOfVector(nrm.body:getX(),nrm.body:getY(),nrm.currentnode.x-1/2,nrm.currentnode.y-1/2)
+				local a=angleOfVector(nrm.body:getX(),nrm.body:getY(),nrm.currentnode.x,nrm.currentnode.y)
 				nrm.body:setAngle(a)
 				local force=nrm.moveForce
 				nrm.body:applyForce(force*math.cos(a),force*math.sin(a))

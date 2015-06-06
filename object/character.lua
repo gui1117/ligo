@@ -227,7 +227,7 @@ function create.character( world, x, y, gid)
 				character[p].body:applyForce(-character.moveForce,0)
 				ox=ox-1
 			end
-			if ox~=0 and oy~=0 then
+			if ox~=0 or oy~=0 then
 				character[p].body:setAngle(angleOfPoint({x=ox,y=oy}))
 			end
 		end
@@ -251,7 +251,7 @@ function create.character( world, x, y, gid)
 				character[p].body:applyForce(-character.moveForce,0)
 				ox=ox-1
 			end
-			if ox~=0 and oy~=0 then
+			if ox~=0 or oy~=0 then
 				character[p].body:setAngle(angleOfPoint({x=ox,y=oy}))
 			end
 		end
@@ -284,7 +284,7 @@ function create.character( world, x, y, gid)
 					character[p].body:applyForce(-character.moveForce,0)
 					ox=ox-1
 				end
-				if ox~=0 and oy~=0 then
+				if ox~=0 or oy~=0 then
 					character[p].body:setAngle(angleOfPoint({x=ox,y=oy}))
 				end
 			end
@@ -302,7 +302,7 @@ function create.character( world, x, y, gid)
 				local x=joystick:getAxis(keymap[p].hAxis)*keymap[p].hAxisDirection*character.moveForce
 				local y=joystick:getAxis(keymap[p].vAxis)*keymap[p].vAxisDirection*character.moveForce
 				character[p].body:applyForce(x,y)
-				if x~=0 and y~=0 then
+				if x~=0 or y~=0 then
 					character[p].body:setAngle(angleOfPoint({x=x,y=y}))
 				end
 			end
