@@ -523,7 +523,8 @@ function menuState:enable()
 		end,
 		keyboard=false,
 		hat=true,
-		axis=true},
+		axis=true,
+		button=true},
 		{name=function()
 			return "up pad button : "..keymap[playerSetting].buttonUp
 		end,
@@ -752,12 +753,12 @@ function menuState:enable()
 		keyboard=false,
 		hat=false,
 		axis=true},
-		{name=function()
-			return "vAxisDirection : "..keymap[playerSetting].vAxisDirection
-		end,
-		enter=function()
-			keymap[playerSetting].vAxisDirection=-keymap[playerSetting].vAxisDirection
-		end},
+--		{name=function()
+--			return "vAxisDirection : "..keymap[playerSetting].vAxisDirection
+--		end,
+--		enter=function()
+--			keymap[playerSetting].vAxisDirection=-keymap[playerSetting].vAxisDirection
+--		end},
 		{name=function()
 			return "hAxis number "..keymap[playerSetting].hAxis
 		end,
@@ -812,12 +813,12 @@ function menuState:enable()
 		keyboard=false,
 		hat=false,
 		axis=true},
-		{name=function()
-			return "hAxisDirection : "..keymap[playerSetting].hAxisDirection
-		end,
-		enter=function()
-			keymap[playerSetting].hAxisDirection=-keymap[playerSetting].hAxisDirection
-		end},
+--		{name=function()
+--			return "hAxisDirection : "..keymap[playerSetting].hAxisDirection
+--		end,
+--		enter=function()
+--			keymap[playerSetting].hAxisDirection=-keymap[playerSetting].hAxisDirection
+--		end},
 		{name=function()
 			return "walk pad button : "..keymap[playerSetting].button 
 		end,

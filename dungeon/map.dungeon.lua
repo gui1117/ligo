@@ -15,6 +15,10 @@ return {
 		type="level",
 		map="map1.lua",
 		music="Sideways.mp3",
+	},
+	{
+		type="level",
+		map="map2.lua",
+		music="Sideways.mp3",
 	}
-
 }

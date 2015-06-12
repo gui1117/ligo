@@ -157,7 +157,7 @@ Notation :
 	* **sound** 	: string	[arrow]
 		* destroy : "string-destroy.ogg" when colliding something
 	* **shape** 	: {circle, rectangle} 	[circle]
-	* **radius** 	: number 	[0.3]
+	* **radius** 	: number 	[0.25]
 	* **height** 	: number 	[0.3]
 	* **width** 	: number	[0.1]
 	* **velocity** 	: number 	[1]	: maximum linear velocity relatively to character velocity
@@ -176,10 +176,11 @@ Notation :
 	* **rate** 	: number 	[1]	: time between shoots in second
 	* **angularVelocity** : number	[0]	: velocity in degree per second
 	* **shape** 	: {rectangle, circle} [circle]
-	* **radius**	: number	[0.5]
+	* **radius**	: number	[0.25]
 	* **height**	: number	[1]
 	* **width**	: number	[1]
 	* **initTime** 	: number	[0]	: set time at beginning, I use it de unsynchronize arrowslit
+	* **initAngle**	: number	[0]	: set the initial angle of the arrowslit
 	* **angle..** 	: number	[NULL]	: angles of shoot in degrees (this attribute can be set many times with different name as angle1, angle2...)
 	* **aim** 	: boolean 	[false]	: weither it follows de closest character or not
 * **camera** : set the scale

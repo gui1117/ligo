@@ -17,7 +17,7 @@ function create.arrow(world,x,y,gid,a)
 	end
 
 	na.shape=gid.shape or "circle"
-	na.radius=tonumber(gid.radius) or 0.3
+	na.radius=tonumber(gid.radius) or 0.25
 	na.height=tonumber(gid.height) or 0.3
 	na.width=tonumber(gid.width) or 0.1
 	na.velocity=(tonumber(gid.velocity) or 1)*character.velocity
@@ -26,7 +26,7 @@ function create.arrow(world,x,y,gid,a)
 	na.timeToDie=(tonumber(gid.time) or (tonumber(gid.distance) or 30)/na.velocity )+ love.timer.getTime()
 	na.damage=tonumber(gid.damage) or 1
 	a=a or 0
-	na.guided=(gid.guided or "false")=="true"
+	na.guided=(gid.guided=="true")
 
 	if na.shape=="circle" then
 		na.body=love.physics.newBody(world, x+math.cos(a)*(na.radius), y+math.sin(a)*(na.radius), "dynamic")
