@@ -28,6 +28,7 @@ end
 
 --Enable
 function menuState:enable()
+	titletheme:setVolume(musicVolume)
 	titletheme:play()
 	menuButton={
 		escape=function()

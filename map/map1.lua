@@ -727,7 +727,7 @@ return {
       margin = 0,
       image = "arrowslit.png",
       imagewidth = 144,
-      imageheight = 128,
+      imageheight = 256,
       tileoffset = {
         x = 0,
         y = 0

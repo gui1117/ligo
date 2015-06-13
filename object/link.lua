@@ -44,6 +44,8 @@ function create.link(world,x,y,gid)
 	nl.minNodeDistance=0.5
 	nl.linearDamping=5
 	nl.radius=0.25
+	nl.width=1.5
+	nl.height=0.2
 	nl.density=0
 	nl.hot=3 --  >=1
 	nl.damage=1
@@ -59,7 +61,7 @@ function create.link(world,x,y,gid)
 		local nn={}
 		nn.body=love.physics.newBody(world,x,y,"dynamic")
 		nn.body:setLinearDamping(nl.linearDamping)
-		nn.shape=love.physics.newCircleShape(nl.radius)
+		nn.shape=love.physics.newRectangleShape(nl.width,nl.height)
 		nn.fixture=love.physics.newFixture(nn.body,nn.shape,nl.density)
 		nn.fixture:setUserData(nn)
 		nn.beginContact={}

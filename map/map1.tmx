@@ -4,7 +4,7 @@
  <tileset firstgid="64" source="character.tsx"/>
  <tileset firstgid="118" source="generator.tsx"/>
  <tileset firstgid="163" name="arrowslit" tilewidth="16" tileheight="16">
-  <image source="arrowslit.png" width="144" height="128"/>
+  <image source="arrowslit.png" width="144" height="256"/>
   <tile id="0">
    <properties>
     <property name="name" value="arrow"/>
