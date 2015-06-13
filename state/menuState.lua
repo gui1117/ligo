@@ -42,13 +42,6 @@ function menuState:enable()
 			currentButton=levelButton
 		end},
 		{name=function()
-			return "manual"
-		end,
-		enter=function()
-			buttonPress=1
-			currentButton=manualButton
-		end},
-		{name=function()
 			return "setting"
 		end,
 		enter=function()
@@ -371,22 +364,6 @@ function menuState:enable()
 			currentButton=menuButton
 		end}
 
-	}
-	manualButton={
-		escape=function()
-			buttonPress=1
-			currentButton=menuButton
-		end,
-		{name=function()
-			return "run in two dimension\nwalk by holding a key\n\nwhen you die you become a phantom that can rebirth by touching a character alive\n\nlink is reset between player when touching, it is constituted of two part a hazardous one and a safe one."
-		end},
-		{name=function()
-			return "return"
-		end,
-		enter=function()
-			buttonPress=1
-			currentButton=menuButton
-		end}
 	}
 	playerInput={
 		escape=function()
@@ -888,55 +865,70 @@ end
 --Draw
 function menuState:draw()
 	love.graphics.printf("Ligo",love.window.getWidth()/2,love.window.getHeight()/4,0,"center",0,10,9)
-	--love.graphics.print(pattern,love.window.getWidth()/2,love.window.getHeight()/4)
-	local b=""
 	local p=""
-
 	if currentButton==playerInput then
-	local joysticks=love.joystick.getJoysticks()
-	for _,j in ipairs(joysticks) do
-		p=p.."joystick : "..j:getName().."\n"
-		p=p..j:getAxisCount().." axis : \n"
-		for a=1,j:getAxisCount() do
-			p=p.." * "..j:getAxis(a).."\n"
+		local joysticks=love.joystick.getJoysticks()
+		for _,j in ipairs(joysticks) do
+			p=p.."joystick : "..j:getName().."\n"
+			p=p..j:getAxisCount().." axis : \n"
+			for a=1,j:getAxisCount() do
+				p=p.." * "..j:getAxis(a).."\n"
+			end
+			p=p..j:getHatCount().." hat : \n"
+			for a=1,j:getHatCount() do
+				p=p.." * "..j:getHat(a).."\n"
+			end
+			p=p.."button down : \n"
+			for i=1,100 do
+				if j:isDown(i) then
+					p=p.." * "..i.."\n"
+				end
+			end
+			p=p.."\n\n"
 		end
-		p=p..j:getHatCount().." hat : \n"
-		for a=1,j:getHatCount() do
-			p=p.." * "..j:getHat(a).."\n"
-		end
-		p=p.."button down : \n"
-		for i=1,100 do
-			if j:isDown(i) then
-				p=p.." * "..i.."\n"
+	elseif currentButton==levelButton then
+		p=" Map list :\n"
+		for _,j in ipairs(dungeonList) do
+			p=p.."\n"..j.name
+			if j.note then 
+				p=p.." -- "..j.note 
 			end
 		end
-		p=p.."\n\n"
-	end
 	end
 
+	local font=love.graphics.getFont()
+	local dh=0
 	for i,v in ipairs(currentButton) do
 		local mes=v.name()
+		local s=1
 		if currentButton==playerInput and not v[keymap[playerSetting].type] then
 			mes="( "..mes.." )"
+			s=0.7
 		end
 		if buttonPress==i then
 			local len=string.len(mes)
-			b=b.."\n"
+			local b=""
 			for i=1,len do
 				b=b.."="
 			end
-			b=b.."\n|| "..mes.." ||\n"
-			for i=1,len do
-				b=b.."="
-			end
-		else
-			b=b.."\n"..mes
+			mes="|| "..mes.." ||"
+			love.graphics.printf(b,love.window.getWidth()/2,love.window.getHeight()/2+dh,250,"center",0,s,s,125,0)
+			dh=dh+font:getHeight()
 		end
+		love.graphics.printf(mes,love.window.getWidth()/2,love.window.getHeight()/2+dh,500,"center",0,s,s,250,0)
+		dh=dh+font:getHeight()
+		if buttonPress==i then
+			local len=string.len(mes)-6
+			local b=""
+			for i=1,len do
+				b=b.."="
+			end
+			love.graphics.printf(b,love.window.getWidth()/2,love.window.getHeight()/2+dh,250,"center",0,s,s,125,0)
+			dh=dh+font:getHeight()
+		end
+		dh=dh+font:getHeight()/3
 	end
-	love.graphics.printf(b,love.window.getWidth()/2,love.window.getHeight()/2,250,"center",0,1,1,125,0)
 	love.graphics.printf(p,love.window.getWidth()/3,love.window.getHeight()/4,150,"left",0,1,1,75,0)
---	love.graphics.printf(pattern,love.window.getWidth()/8,love.window.getHeight()/15,150,"center",0,3,2,75,0)
---	love.graphics.printf(pattern,love.window.getWidth()*7/8,love.window.getHeight()/15,150,"center",0,3,2,75,0)
 end
 
 --KeyPressed
