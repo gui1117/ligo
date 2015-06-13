@@ -36,7 +36,7 @@
  <tile id="10">
   <properties>
    <property name="angle" value="0"/>
-   <property name="angularVelocity" value="70"/>
+   <property name="angularVelocity" value="-70"/>
    <property name="name" value="arrowslit"/>
    <property name="rate" value="0.1"/>
   </properties>
@@ -60,7 +60,7 @@
  <tile id="12">
   <properties>
    <property name="angle" value="0"/>
-   <property name="angularVelocity" value="70"/>
+   <property name="angularVelocity" value="-70"/>
    <property name="name" value="arrowslit"/>
    <property name="rate" value="0.1"/>
   </properties>
@@ -86,7 +86,7 @@
   <properties>
    <property name="angle" value="0"/>
    <property name="angle1" value="180"/>
-   <property name="angularVelocity" value="70"/>
+   <property name="angularVelocity" value="-70"/>
    <property name="name" value="arrowslit"/>
    <property name="rate" value="0.1"/>
   </properties>
@@ -112,7 +112,7 @@
   <properties>
    <property name="angle" value="0"/>
    <property name="angle1" value="180"/>
-   <property name="angularVelocity" value="70"/>
+   <property name="angularVelocity" value="-70"/>
    <property name="name" value="arrowslit"/>
    <property name="rate" value="0.1"/>
   </properties>
@@ -142,7 +142,7 @@
    <property name="angle1" value="90"/>
    <property name="angle2" value="180"/>
    <property name="angle3" value="270"/>
-   <property name="angularVelocity" value="70"/>
+   <property name="angularVelocity" value="-70"/>
    <property name="name" value="arrowslit"/>
    <property name="rate" value="0.1"/>
   </properties>
@@ -172,7 +172,7 @@
    <property name="angle1" value="90"/>
    <property name="angle2" value="180"/>
    <property name="angle3" value="270"/>
-   <property name="angularVelocity" value="70"/>
+   <property name="angularVelocity" value="-70"/>
    <property name="name" value="arrowslit"/>
    <property name="rate" value="0.1"/>
   </properties>

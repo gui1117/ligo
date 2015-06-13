@@ -1747,7 +1747,7 @@ return {
           id = 10,
           properties = {
             ["angle"] = "0",
-            ["angularVelocity"] = "70",
+            ["angularVelocity"] = "-70",
             ["name"] = "arrowslit",
             ["rate"] = "0.1"
           },
@@ -1785,7 +1785,7 @@ return {
           id = 12,
           properties = {
             ["angle"] = "0",
-            ["angularVelocity"] = "70",
+            ["angularVelocity"] = "-70",
             ["name"] = "arrowslit",
             ["rate"] = "0.1"
           },
@@ -1825,7 +1825,7 @@ return {
           properties = {
             ["angle"] = "0",
             ["angle1"] = "180",
-            ["angularVelocity"] = "70",
+            ["angularVelocity"] = "-70",
             ["name"] = "arrowslit",
             ["rate"] = "0.1"
           },
@@ -1865,7 +1865,7 @@ return {
           properties = {
             ["angle"] = "0",
             ["angle1"] = "180",
-            ["angularVelocity"] = "70",
+            ["angularVelocity"] = "-70",
             ["name"] = "arrowslit",
             ["rate"] = "0.1"
           },
@@ -1909,7 +1909,7 @@ return {
             ["angle1"] = "90",
             ["angle2"] = "180",
             ["angle3"] = "270",
-            ["angularVelocity"] = "70",
+            ["angularVelocity"] = "-70",
             ["name"] = "arrowslit",
             ["rate"] = "0.1"
           },
@@ -1953,7 +1953,7 @@ return {
             ["angle1"] = "90",
             ["angle2"] = "180",
             ["angle3"] = "270",
-            ["angularVelocity"] = "70",
+            ["angularVelocity"] = "-70",
             ["name"] = "arrowslit",
             ["rate"] = "0.1"
           },
