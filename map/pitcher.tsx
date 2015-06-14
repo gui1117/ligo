@@ -61,6 +61,7 @@
    <property name="aim" value="true"/>
    <property name="angle" value="0"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="pitcher"/>
   </properties>
   <animation>
    <frame tileid="18" duration="0"/>
@@ -72,6 +73,7 @@
    <property name="aim" value="true"/>
    <property name="angle" value="0"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="pitcher"/>
   </properties>
   <animation>
    <frame tileid="19" duration="0"/>
@@ -83,6 +85,7 @@
    <property name="aim" value="true"/>
    <property name="angle" value="0"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="pitcher"/>
   </properties>
   <animation>
    <frame tileid="20" duration="0"/>
@@ -94,6 +97,7 @@
    <property name="aim" value="true"/>
    <property name="angle" value="0"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="pitcher"/>
   </properties>
   <animation>
    <frame tileid="21" duration="0"/>
@@ -105,6 +109,7 @@
    <property name="aim" value="true"/>
    <property name="angle" value="0"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="pitcher"/>
   </properties>
   <animation>
    <frame tileid="22" duration="0"/>

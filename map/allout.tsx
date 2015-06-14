@@ -59,6 +59,7 @@
    <property name="angle4" value="270"/>
    <property name="angularVelocity" value="70"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="allout"/>
    <property name="rate" value="0.5"/>
   </properties>
   <animation>
@@ -73,6 +74,7 @@
    <property name="angle3" value="180"/>
    <property name="angle4" value="270"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="allout"/>
   </properties>
   <animation>
    <frame tileid="19" duration="0"/>
@@ -86,6 +88,7 @@
    <property name="angle3" value="180"/>
    <property name="angle4" value="270"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="allout"/>
   </properties>
   <animation>
    <frame tileid="20" duration="0"/>
@@ -99,6 +102,7 @@
    <property name="angle3" value="180"/>
    <property name="angle4" value="270"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="allout"/>
   </properties>
   <animation>
    <frame tileid="21" duration="0"/>
@@ -112,6 +116,7 @@
    <property name="angle3" value="180"/>
    <property name="angle4" value="270"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="allout"/>
   </properties>
   <animation>
    <frame tileid="22" duration="0"/>

@@ -26,6 +26,7 @@
    <property name="angle" value="0"/>
    <property name="angularVelocity" value="70"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="fireeater"/>
    <property name="rate" value="0.1"/>
   </properties>
   <animation>
@@ -38,6 +39,7 @@
    <property name="angle" value="0"/>
    <property name="angularVelocity" value="-70"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="fireeater"/>
    <property name="rate" value="0.1"/>
   </properties>
   <animation>
@@ -50,6 +52,7 @@
    <property name="angle" value="0"/>
    <property name="angularVelocity" value="70"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="fireeater"/>
    <property name="rate" value="0.1"/>
   </properties>
   <animation>
@@ -62,6 +65,7 @@
    <property name="angle" value="0"/>
    <property name="angularVelocity" value="-70"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="fireeater"/>
    <property name="rate" value="0.1"/>
   </properties>
   <animation>
@@ -75,6 +79,7 @@
    <property name="angle1" value="180"/>
    <property name="angularVelocity" value="70"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="fireeater"/>
    <property name="rate" value="0.1"/>
   </properties>
   <animation>
@@ -88,6 +93,7 @@
    <property name="angle1" value="180"/>
    <property name="angularVelocity" value="-70"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="fireeater"/>
    <property name="rate" value="0.1"/>
   </properties>
   <animation>
@@ -101,6 +107,7 @@
    <property name="angle1" value="180"/>
    <property name="angularVelocity" value="70"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="fireeater"/>
    <property name="rate" value="0.1"/>
   </properties>
   <animation>
@@ -114,6 +121,7 @@
    <property name="angle1" value="180"/>
    <property name="angularVelocity" value="-70"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="fireeater"/>
    <property name="rate" value="0.1"/>
   </properties>
   <animation>
@@ -129,6 +137,7 @@
    <property name="angle3" value="270"/>
    <property name="angularVelocity" value="70"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="fireeater"/>
    <property name="rate" value="0.1"/>
   </properties>
   <animation>
@@ -144,6 +153,7 @@
    <property name="angle3" value="270"/>
    <property name="angularVelocity" value="-70"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="fireeater"/>
    <property name="rate" value="0.1"/>
   </properties>
   <animation>
@@ -159,6 +169,7 @@
    <property name="angle3" value="270"/>
    <property name="angularVelocity" value="70"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="fireeater"/>
    <property name="rate" value="0.1"/>
   </properties>
   <animation>
@@ -174,6 +185,7 @@
    <property name="angle3" value="270"/>
    <property name="angularVelocity" value="-70"/>
    <property name="name" value="arrowslit"/>
+   <property name="sound" value="fireeater"/>
    <property name="rate" value="0.1"/>
   </properties>
   <animation>
