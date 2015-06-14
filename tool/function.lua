@@ -42,3 +42,10 @@ function contentFile(name)
 	end
 	return name
 end
+
+function closeSound(source)
+	xs,ys=source:getPosition()
+	x,y=love.audio.getPosition()
+	d=math.max(camera.tileinwidth,camera.tileinheight)*3/4
+	return norme(xs-x,ys-y) < d
+end

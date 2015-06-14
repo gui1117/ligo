@@ -97,8 +97,10 @@ function initGeneratorUpdate(ng,world,x,y,gid,mapgid)
 					ng.state="prespawn"
 					local s=sound[ng.sound.."-prespawn"]
 					s[s.cursor]:setPosition(ng.body:getX(),ng.body:getY())
-					s[s.cursor]:play()
-					s.cursor=s.cursor % table.getn(s) +1
+					if closeSound(s[s.cursor]) then
+						s[s.cursor]:play()
+						s.cursor=s.cursor % table.getn(s) +1
+					end
 
 				end
 			elseif ng.state=="prespawn" then
@@ -107,8 +109,10 @@ function initGeneratorUpdate(ng,world,x,y,gid,mapgid)
 					ng.state="wait"
 					local s=sound[ng.sound.."-spawn"]
 					s[s.cursor]:setPosition(ng.body:getX(),ng.body:getY())
-					s[s.cursor]:play()
-					s.cursor=s.cursor % table.getn(s) +1
+					if closeSound(s[s.cursor]) then
+						s[s.cursor]:play()
+						s.cursor=s.cursor % table.getn(s) +1
+					end
 
 					local spawn={}
 					for _,v in ipairs(ng.spawn) do

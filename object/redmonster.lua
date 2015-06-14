@@ -83,8 +83,10 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 			if v.other and v.other.makeDamage and v.other.name ~= nrm.name then
 				local s=sound[nrm.sound.."-damage"]
 				s[s.cursor]:setPosition(nrm.body:getX(),nrm.body:getY())
-				s[s.cursor]:play()
-				s.cursor=s.cursor % table.getn(s) +1
+				if closeSound(s[s.cursor]) then
+					s[s.cursor]:play()
+					s.cursor=s.cursor % table.getn(s) +1
+				end
 
 				v.other.makeDamage(nrm.damage)
 				nrm.kill()
@@ -165,8 +167,10 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 		sound[nrm.sound.."-run"][nrm.nbr]:stop()
 		local s=sound[nrm.sound.."-die"]
 		s[s.cursor]:setPosition(nrm.body:getX(),nrm.body:getY())
-		s[s.cursor]:play()
-		s.cursor=s.cursor % table.getn(s) +1
+		if closeSound(s[s.cursor]) then
+			s[s.cursor]:play()
+			s.cursor=s.cursor % table.getn(s) +1
+		end
 
 		nrm.body:destroy()
 		object[nrm.name..nrm.nbr]=nil

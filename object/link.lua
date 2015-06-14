@@ -47,7 +47,7 @@ function create.link(world,x,y,gid)
 	nl.width=1.6
 	nl.height=0.2
 	nl.density=0
-	nl.hot=2 --  >=1
+	nl.hot=3 --  >=1
 	nl.damage=1
 	--nl.gap
 

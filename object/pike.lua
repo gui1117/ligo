@@ -43,8 +43,10 @@ function create.pike(world,x,y,gid)
 			if not np.up then
 				local s=sound[np.sound.."-declench"]
 				s[s.cursor]:setPosition(np.body:getX(),np.body:getY())
-				s[s.cursor]:play()
-				s.cursor=s.cursor % table.getn(s) +1
+				if closeSound(s[s.cursor]) then
+					s[s.cursor]:play()
+					s.cursor=s.cursor % table.getn(s) +1
+				end
 
 				np.declench=love.timer.getTime() + pike.timeToDeclench
 			end
@@ -54,8 +56,10 @@ function create.pike(world,x,y,gid)
 			if love.timer.getTime() > np.declench then
 				local s=sound[np.sound.."-up"]
 				s[s.cursor]:setPosition(np.body:getX(),np.body:getY())
-				s[s.cursor]:play()
-				s.cursor=s.cursor % table.getn(s) +1
+				if closeSound(s[s.cursor]) then
+					s[s.cursor]:play()
+					s.cursor=s.cursor % table.getn(s) +1
+				end
 
 				np.up=love.timer.getTime() + pike.timeUp
 				np.declench=false

@@ -10,23 +10,26 @@ function create.fin (world,x,y,gid)
 
 	nf.sound=gid.sound or "fin"
 	if not sound[nf.sound.."-0Activated"] then
-		sound[nf.sound.."-0Activated"]={cursor=1}
-		for i=1,2 do
-			table.insert(sound[nf.sound.."-0Activated"],initsource(love.audio.newSource(contentFile("sound/"..nf.sound.."-0Activated.ogg"),"static")))
-		end
+		sound[nf.sound.."-0Activated"]={}
 	end
+	local s=initsource(love.audio.newSource(contentFile("sound/"..nf.sound.."-0Activated.ogg"),"static"))
+	s:setPosition(x-1/2,y-1/2)
+	sound[nf.sound.."-0Activated"][nf.nbr]=s
+
 	if not sound[nf.sound.."-1Activated"] then
-		sound[nf.sound.."-1Activated"]={cursor=1}
-		for i=1,2 do
-			table.insert(sound[nf.sound.."-1Activated"],initsource(love.audio.newSource(contentFile("sound/"..nf.sound.."-1Activated.ogg"),"static")))
-		end
+		sound[nf.sound.."-1Activated"]={}
 	end
+	s=initsource(love.audio.newSource(contentFile("sound/"..nf.sound.."-1Activated.ogg"),"static"))
+	s:setPosition(x-1/2,y-1/2)
+	s:setLooping(true)
+	sound[nf.sound.."-1Activated"][nf.nbr]=s
+
 	if not sound[nf.sound.."-2Activated"] then
-		sound[nf.sound.."-2Activated"]={cursor=1}
-		for i=1,2 do
-			table.insert(sound[nf.sound.."-2Activated"],initsource(love.audio.newSource(contentFile("sound/"..nf.sound.."-2Activated.ogg"),"static")))
-		end
+		sound[nf.sound.."-2Activated"]={}
 	end
+	s=initsource(love.audio.newSource(contentFile("sound/"..nf.sound.."-2Activated.ogg"),"static"))
+	s:setPosition(x-1/2,y-1/2)
+	sound[nf.sound.."-2Activated"][nf.nbr]=s
 
 	nf.beginContact={}
 	nf.endContact={}
@@ -36,19 +39,22 @@ function create.fin (world,x,y,gid)
 	nf.fixture=love.physics.newFixture(nf.body,nf.shape)
 	nf.fixture:setUserData(nf)
 	setGroup(nf.fixture,"floor")
+	nf.activeSound=sound[nf.sound.."-"..nf.activated.."Activated"]
 	nf.update=function()
 		local s=false
 		for _,v in ipairs(nf.beginContact) do
 			if v.other.name == "character" then
+				sound[nf.sound.."-"..nf.activated.."Activated"][nf.nbr]:stop()
 				nf.activated=nf.activated+1
-				s=sound[nf.sound.."-"..nf.activated.."Activated"]
+				sound[nf.sound.."-"..nf.activated.."Activated"][nf.nbr]:play()
 			end
 		end
 		nf.beginContact={}
 		for _,v in ipairs(nf.endContact) do
 			if v.other.name == "character" then
+				sound[nf.sound.."-"..nf.activated.."Activated"][nf.nbr]:stop()
 				nf.activated=nf.activated-1
-				s=sound[nf.sound.."-"..nf.activated.."Activated"]
+				sound[nf.sound.."-"..nf.activated.."Activated"][nf.nbr]:play()
 			end
 		end
 		if s then

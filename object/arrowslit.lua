@@ -14,7 +14,7 @@ function create.arrowslit(world, x, y, gid, mapgid)
 	nas.sound=gid.sound or "arrowslit"
 	if not sound[nas.sound.."-shoot"] then
 		sound[nas.sound.."-shoot"]={cursor=1}
-		for i=1,200 do
+		for i=1,20 do
 			table.insert(sound[nas.sound.."-shoot"],initsource(love.audio.newSource(contentFile("sound/"..nas.sound.."-shoot.ogg"),"static")))
 		end
 	end
@@ -104,8 +104,10 @@ function create.arrowslit(world, x, y, gid, mapgid)
 				local a=v.angle+nas.body:getAngle()
 				local s=sound[nas.sound.."-shoot"]
 				s[s.cursor]:setPosition(nas.body:getX(),nas.body:getY())
-				s[s.cursor]:play()
-				s.cursor=s.cursor % table.getn(s) +1
+				if closeSound(s[s.cursor]) then
+					s[s.cursor]:play()
+					s.cursor=s.cursor % table.getn(s) +1
+				end
 				create[nas.bulletgid.name](world,x-1/2+math.cos(a)*nas.distance,y-1/2+math.sin(a)*nas.distance,nas.bulletgid,a)
 			end
 		end
