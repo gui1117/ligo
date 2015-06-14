@@ -2,7 +2,7 @@ require "tool.pathfinder"
 function initmap (mapname)
 	--timeCoef=1.5
 	map=nil
-	map=love.filesystem.load("map/"..mapname)() -- needed for pathfinding ( height and width )
+	map=love.filesystem.load(contentFile("map/"..mapname))() -- needed for pathfinding ( height and width )
 	local gid=tiolved.gid(map,"map/")
 
 	tileset=tiolved.tileset(gid,map)

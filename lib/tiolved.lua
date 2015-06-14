@@ -43,7 +43,7 @@ function tiolved.gid(map,rep)
 --		if m.je=="tileset" then
 	for _,tileset in ipairs(map.tilesets) do
 		-- import the image of the tileset in the repertory indicated
-		tileset.image=love.graphics.newImage(rep..tileset.image)
+		tileset.image=love.graphics.newImage(contentFile(rep..tileset.image))
 		-- number of tile in width and in height, used to loop on them
 		local tileinwidth=math.floor(tileset.imagewidth/tileset.tilewidth)
 		local tileinheight=math.floor(tileset.imageheight/tileset.tileheight)
