@@ -14,7 +14,7 @@ function create.arrowslit(world, x, y, gid, mapgid)
 	nas.sound=gid.sound or "arrowslit"
 	if not sound[nas.sound.."-shoot"] then
 		sound[nas.sound.."-shoot"]={cursor=1}
-		for i=1,20 do
+		for i=1,200 do
 			table.insert(sound[nas.sound.."-shoot"],initsource(love.audio.newSource(contentFile("sound/"..nas.sound.."-shoot.ogg"),"static")))
 		end
 	end

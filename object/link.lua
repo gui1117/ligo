@@ -41,13 +41,13 @@ function create.link(world,x,y,gid)
 	local a1,a2=nl.anchor[1],nl.anchor[2]
 	nl.distance=0
 	nl.maxNodeDistance=1.4
-	nl.minNodeDistance=0.5
+	nl.minNodeDistance=0.7
 	nl.linearDamping=5
 	nl.radius=0.25
-	nl.width=1.5
+	nl.width=1.6
 	nl.height=0.2
 	nl.density=0
-	nl.hot=3 --  >=1
+	nl.hot=2 --  >=1
 	nl.damage=1
 	--nl.gap
 
