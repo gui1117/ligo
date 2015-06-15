@@ -18,9 +18,7 @@ function initmap (mapname)
 					local g=gid[vjk]
 					if g.name and create[g.name] then
 						g.canvas:setFilter("nearest")
-						local ti=love.timer.getTime()
 						create[g.name](world,(k-1)%map.width+1,math.ceil(k/map.width),g,gid,mapGid)
-						print("\n"..g.name.." : "..love.timer.getTime()-ti)
 					end
 				end
 			end
