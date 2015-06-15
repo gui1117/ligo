@@ -40,8 +40,8 @@ function create.link(world,x,y,gid)
 	nl.anchor[2]=tonumber(gid.anchor2) or 2
 	local a1,a2=nl.anchor[1],nl.anchor[2]
 	nl.distance=0
-	nl.maxNodeDistance=1.4
-	nl.minNodeDistance=0.7
+	nl.maxNodeDistance=1.5
+	nl.minNodeDistance=0.6
 	nl.linearDamping=5
 	nl.radius=0.25
 	nl.width=1.6
@@ -60,6 +60,7 @@ function create.link(world,x,y,gid)
 
 		local nn={}
 		nn.body=love.physics.newBody(world,x,y,"dynamic")
+		nn.body:setBullet(true)
 		nn.body:setLinearDamping(nl.linearDamping)
 		nn.shape=love.physics.newRectangleShape(nl.width,nl.height)
 		nn.fixture=love.physics.newFixture(nn.body,nn.shape,nl.density)

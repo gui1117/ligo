@@ -1,6 +1,11 @@
 Ligo
 ========================================
 
+Video
+----------------------------------------
+not available
+
+
 Install stable version
 ----------------------------------------
 not available
@@ -68,7 +73,6 @@ map editor
 ----------------------------------------
 
 a basic example is available [here](https://github.com/thiolliere/ligo_editor),
-download it and see the readme, it guides you step by step.
 
 you can edit a map and a dungeon (a series of map like in the game)
 
@@ -103,7 +107,7 @@ dungeon
 map
 ----------------------------------------
 
-Map are generated with (tiled)[http://www.mapeditor.org/], use ctrl+e to export in lua.
+Map are generated with [tiled](http://www.mapeditor.org/), use ctrl+e to export in lua.
 First download it.
 
 Tiled is a tool to create layer of tile.
@@ -146,7 +150,7 @@ Notation :
 		* ..
 	* attribute : type [default_value] : description
 	* ..
-	* an enum type is write {class1, class2,..}
+	* an enum type is writen {class1, class2,..}
 
 #Primitive
 

@@ -26,7 +26,7 @@ function create.arrowslit(world, x, y, gid, mapgid)
 	nas.angularVelocity=(tonumber(gid.angularVelocity) or 0)*math.pi/180
 	nas.shape=tonumber(gid.shape) or "circle"
 	if nas.shape=="circle" then
-		nas.radius=tonumber(gid.radius) or 0.25
+		nas.radius=tonumber(gid.radius) or 0.30
 		nas.distance=nas.radius*1.1
 	elseif nas.shape=="rectangle" then
 		nas.height=tonumber(gid.height) or 1
@@ -36,27 +36,28 @@ function create.arrowslit(world, x, y, gid, mapgid)
 	nas.timeToShoot=nas.rate - (tonumber(gid.initTime) or 0 ) + love.timer.getTime()
 	for k,v in pairs(gid) do
 		if string.find(k,"angle.*")==1 then
-			table.insert(nas,{angle=tonumber(v)*math.pi/180 + nas.initAngle})
+			table.insert(nas,{angle=tonumber(v)*math.pi/180})
 		end
 	end
 	nas.bulletgid=mapgid[gid.animation[2].tileid]
 
 	-- init physic
-	local bodytype
-	if nas.angularVelocity==0 and nas.aim==false then
-		bodytype="static"
-		nas.getAngle=function()
-			return nas.initAngle	
-		end
-	else
-		bodytype="dynamic"
-		nas.getAngle=function()
-			return nas.body:getAngle()
-		end
-	end
-	nas.body=love.physics.newBody(world,x-1/2,y-1/2,bodytype)
-	nas.body:setAngle(nas.initAngle)
-	nas.body:setAngularVelocity(nas.angularVelocity)
+--	local bodytype
+--	if nas.angularVelocity==0 and nas.aim==false then
+--		bodytype="static"
+--		nas.getAngle=function()
+--			return nas.initAngle	
+--		end
+--	else
+--		bodytype="dynamic"
+--		nas.getAngle=function()
+--			return nas.body:getAngle()
+--		end
+--	end
+	nas.body=love.physics.newBody(world,x-1/2,y-1/2,"static")
+	nas.angle=nas.initAngle
+--	nas.body:setAngle(nas.initAngle)
+--	nas.body:setAngularVelocity(nas.angularVelocity)
 	if nas.shape=="circle" then
 		nas.shape=love.physics.newCircleShape(nas.radius)
 	elseif nas.shape=="rectangle" then
@@ -77,23 +78,23 @@ function create.arrowslit(world, x, y, gid, mapgid)
 	--init update
 	if nas.aim then
 		aim=function()
-			nas.body:setPosition(x-1/2,y-1/2)
-			local oa=nas.body:getAngle()
-			local noa
+--			nas.body:setPosition(x-1/2,y-1/2)
+--			local oa=nas.body:getAngle()
+--			local noa
 			local xa,ya=nas.body:getPosition()
 			local i=character.closer(xa,ya)
 			if i then
 				local xc,yc=character[i].body:getPosition()
-				noa=angleOfVector(xa,ya,xc,yc)
+				nas.angle=angleOfVector(xa,ya,xc,yc)
 			end
-			nas.body:setAngle(noa)
+--			nas.body:setAngle(noa)
 		end
 	elseif nas.angularvelocity~=0 then
-		-- maybe setAngle instead of setAngularVelocity
-		local av=nas.angularVelocity
+--		local av=nas.angularVelocity
 		aim=function()
-			nas.body:setAngle(love.timer.getTime()*av)
-			nas.body:setPosition(x-1/2,y-1/2)
+			nas.angle=love.timer.getTime()*nas.angularVelocity + nas.initAngle
+--			nas.body:setAngle(love.timer.getTime()*av)
+--			nas.body:setPosition(x-1/2,y-1/2)
 		end
 	end
 	function nas.update ()
@@ -101,7 +102,7 @@ function create.arrowslit(world, x, y, gid, mapgid)
 		if love.timer.getTime() > nas.timeToShoot then
 			nas.timeToShoot=nas.timeToShoot+nas.rate
 			for i,v in ipairs(nas) do
-				local a=v.angle+nas.body:getAngle()
+				local a=v.angle+nas.angle
 				local s=sound[nas.sound.."-shoot"]
 				s[s.cursor]:setPosition(nas.body:getX(),nas.body:getY())
 				if closeSound(s[s.cursor]) then
@@ -118,7 +119,7 @@ function create.arrowslit(world, x, y, gid, mapgid)
 	local xr,yr=toRender(x-1/2,y-1/2)
 	function nas.draw ()
 		if camera.isVisible(x-1/2,y-1/2) then
-			tileset:add(40,gid.animation[1].tileid,xr,yr,nas.getAngle(),1,1,toRender(1/2,1/2))
+			tileset:add(40,gid.animation[1].tileid,xr,yr,nas.angle,1,1,toRender(1/2,1/2))
 		end
 	end
 

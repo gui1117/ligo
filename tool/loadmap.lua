@@ -1,6 +1,5 @@
 require "tool.pathfinder"
 function initmap (mapname)
-	local t1=love.timer.getTime()
 	--timeCoef=1.5
 	map=nil
 	map=love.filesystem.load(contentFile("map/"..mapname))() -- needed for pathfinding ( height and width )
@@ -35,7 +34,6 @@ function initmap (mapname)
 	pathfinding:load(map.width,map.height)
 	map=nil
 	collectgarbage()
-	print("\nglobal : "..love.timer.getTime()-t1)
 end
 
 function initmusic(name,loop)
