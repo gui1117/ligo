@@ -45,15 +45,19 @@ function setGroup(fixture,type)
 	elseif type=="link" then
 		fixture:setCategory(7)
 		fixture:setGroupIndex(-7)
-		fixture:setMask(1,2,3,5,6,8)
+		fixture:setMask(1,6,8,10)
 	elseif type=="hotlink" then
 		fixture:setCategory(8)
 		fixture:setGroupIndex(-8)
-		fixture:setMask(1,7)
+		fixture:setMask(1,7,10)
 	elseif type=="phantom" then
 		fixture:setCategory(9)
 		fixture:setGroupIndex(-9)
 		fixture:setMask(1,2,3,5,7,8)
+	elseif type=="nolink" then
+		fixture:setCategory(10)
+		fixture:setGroupIndex(-10)
+		fixture:setMask(1,2,3,4,5,6,7,8,9)
 	end
 end
 

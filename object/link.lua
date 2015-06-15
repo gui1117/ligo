@@ -40,12 +40,12 @@ function create.link(world,x,y,gid)
 	nl.anchor[2]=tonumber(gid.anchor2) or 2
 	local a1,a2=nl.anchor[1],nl.anchor[2]
 	nl.distance=0
-	nl.maxNodeDistance=1.5
-	nl.minNodeDistance=0.6
 	nl.linearDamping=5
 	nl.radius=0.25
-	nl.width=1.6
+	nl.width=1.0
 	nl.height=0.2
+	nl.maxNodeDistance=1.2*nl.width
+	nl.minNodeDistance=0.4*nl.width
 	nl.density=0
 	nl.hot=3 --  >=1
 	nl.damage=1
@@ -125,7 +125,9 @@ function create.link(world,x,y,gid)
 			character[nl.anchor[2]].linkedWith[nl.anchor[1]]=nl
 			local o=angleOfVector(character[a1].body:getX(),character[a1].body:getY(),character[a2].body:getX(),character[a2].body:getY())
 			nl.node[1]=newnode(character[a1].body:getX()+nl.distance*math.cos(o),character[a1].body:getY()+nl.distance*math.sin(o))
+			setGroup(nl.node[1].fixture,"nolink")
 			nl.node[2]=newnode(character[a2].body:getX()-nl.distance*math.cos(o),character[a2].body:getY()-nl.distance*math.sin(o))
+			setGroup(nl.node[2].fixture,"nolink")
 			nl.state="update"
 		elseif nl.state=="update" then
 			--first node
