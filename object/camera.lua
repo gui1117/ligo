@@ -8,7 +8,7 @@ camera.scaleY = 0.3
 camera.rotation = 0
 camera.tileinwidth=100
 camera.tileinheight=100
-camera.scaleFactor=1
+camera.scaleFactor=0.8
 
 function create.camera(world,x,y,gid)
 	camera.scaleX=tonumber(gid.scale) or camera.scaleX
