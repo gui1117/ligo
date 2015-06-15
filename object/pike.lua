@@ -15,16 +15,16 @@ function create.pike(world,x,y,gid)
 	np.sound=gid.sound or "pike"
 	if not sound[np.sound.."-declench"] then
 		sound[np.sound.."-declench"]={cursor=1}
-	end
-	for i=1,5 do
-		table.insert(sound[np.sound.."-declench"],initsource(love.audio.newSource(contentFile("sound/"..np.sound.."-declench.ogg"),"static")))
+		for i=1,10 do
+			table.insert(sound[np.sound.."-declench"],initsource(love.audio.newSource(contentFile("sound/"..np.sound.."-declench.ogg"),"static")))
+		end
 	end
 
 	if not sound[np.sound.."-up"] then
 		sound[np.sound.."-up"]={cursor=1}
-	end
-	for i=1,5 do
-		table.insert(sound[np.sound.."-up"],initsource(love.audio.newSource(contentFile("sound/"..np.sound.."-up.ogg"),"static")))
+		for i=1,10 do
+			table.insert(sound[np.sound.."-up"],initsource(love.audio.newSource(contentFile("sound/"..np.sound.."-up.ogg"),"static")))
+		end
 	end
 
 	np.body=love.physics.newBody(world,x-1/2,y-1/2,"kinematic")

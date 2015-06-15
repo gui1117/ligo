@@ -1,8 +1,10 @@
 require "tool.pathfinder"
 function initmap (mapname)
+	local t1=love.timer.getTime()
 	--timeCoef=1.5
 	map=nil
 	map=love.filesystem.load(contentFile("map/"..mapname))() -- needed for pathfinding ( height and width )
+
 	local gid=tiolved.gid(map,"map/")
 
 	tileset=tiolved.tileset(gid,map)
@@ -16,7 +18,9 @@ function initmap (mapname)
 					local g=gid[vjk]
 					if g.name and create[g.name] then
 						g.canvas:setFilter("nearest")
+						local ti=love.timer.getTime()
 						create[g.name](world,(k-1)%map.width+1,math.ceil(k/map.width),g,gid,mapGid)
+						print("\n"..g.name.." : "..love.timer.getTime()-ti)
 					end
 				end
 			end
@@ -33,6 +37,7 @@ function initmap (mapname)
 	pathfinding:load(map.width,map.height)
 	map=nil
 	collectgarbage()
+	print("\nglobal : "..love.timer.getTime()-t1)
 end
 
 function initmusic(name,loop)
