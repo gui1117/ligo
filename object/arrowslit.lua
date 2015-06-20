@@ -42,22 +42,8 @@ function create.arrowslit(world, x, y, gid, mapgid)
 	nas.bulletgid=mapgid[gid.animation[2].tileid]
 
 	-- init physic
---	local bodytype
---	if nas.angularVelocity==0 and nas.aim==false then
---		bodytype="static"
---		nas.getAngle=function()
---			return nas.initAngle	
---		end
---	else
---		bodytype="dynamic"
---		nas.getAngle=function()
---			return nas.body:getAngle()
---		end
---	end
 	nas.body=love.physics.newBody(world,x-1/2,y-1/2,"static")
 	nas.angle=nas.initAngle
---	nas.body:setAngle(nas.initAngle)
---	nas.body:setAngularVelocity(nas.angularVelocity)
 	if nas.shape=="circle" then
 		nas.shape=love.physics.newCircleShape(nas.radius)
 	elseif nas.shape=="rectangle" then
@@ -78,23 +64,16 @@ function create.arrowslit(world, x, y, gid, mapgid)
 	--init update
 	if nas.aim then
 		aim=function()
---			nas.body:setPosition(x-1/2,y-1/2)
---			local oa=nas.body:getAngle()
---			local noa
 			local xa,ya=nas.body:getPosition()
 			local i=character.closer(xa,ya)
 			if i then
 				local xc,yc=character[i].body:getPosition()
 				nas.angle=angleOfVector(xa,ya,xc,yc)
 			end
---			nas.body:setAngle(noa)
 		end
 	elseif nas.angularvelocity~=0 then
---		local av=nas.angularVelocity
 		aim=function()
 			nas.angle=love.timer.getTime()*nas.angularVelocity + nas.initAngle
---			nas.body:setAngle(love.timer.getTime()*av)
---			nas.body:setPosition(x-1/2,y-1/2)
 		end
 	end
 	function nas.update ()

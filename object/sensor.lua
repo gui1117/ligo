@@ -78,5 +78,10 @@ function create.fin (world,x,y,gid)
 			end
 		end
 	end
+
+	nf.destroy=function()
+		sound[nf.sound.."-1Activated"][nf.nbr]:stop()
+	end
+
 	object[nf.name..nf.nbr]=nf
 end

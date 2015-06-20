@@ -73,6 +73,7 @@ map editor
 ----------------------------------------
 
 a basic example is available [here](https://github.com/thiolliere/ligo_editor),
+with a README explaning step by step how to create a map and a dungeon
 
 you can edit a map and a dungeon (a series of map like in the game)
 

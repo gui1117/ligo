@@ -4,6 +4,10 @@ arrow={}
 arrow.nbr=0
 
 function create.arrow(world,x,y,gid,a)
+	local a = a
+	if type(a)=="table" then
+		a = 0
+	end
 	local na={name="arrow"}
 	arrow.nbr=arrow.nbr+1
 	na.nbr=arrow.nbr
@@ -25,7 +29,6 @@ function create.arrow(world,x,y,gid,a)
 	na.density=tonumber(gid.density) or 1
 	na.timeToDie=(tonumber(gid.time) or (tonumber(gid.distance) or 30)/na.velocity )+ love.timer.getTime()
 	na.damage=tonumber(gid.damage) or 1
-	a=a or 0
 	na.guided=(gid.guided=="true")
 
 	if na.shape=="circle" then

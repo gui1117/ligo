@@ -176,6 +176,10 @@ function initRedmonsterUpdate(nrm,world,x,y,gid)
 		object[nrm.name..nrm.nbr]=nil
 		nrm=nil
 	end
+
+	function nrm.destroy()
+		sound[nrm.sound.."-run"][nrm.nbr]:stop()
+	end
 end
 
 function initRedmonsterDraw(nrm,world,x,y,gid)

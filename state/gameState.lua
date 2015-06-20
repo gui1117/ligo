@@ -33,6 +33,11 @@ end
 
 --Close
 function gameState:close()
+	for _,v in pairs(object) do
+		if v.destroy then
+			v.destroy()
+		end
+	end
 	world:destroy()
 	music:pause()
 end
