@@ -1,33 +1,23 @@
 return {
 	name="dungeon",
 	current=0,
---	{
---		type="picture",
---		image="medium_lapin.jpg",
---		music="picture.ogg"
---	},
---	{
---		type="picture",
---		text="Souvent dans l'être obscur habite un Dieu caché ;\nEt comme un oeil naissant couvert par ses paupières,\nUn pur esprit s'accroît sous l'écorce des pierres !"
---	},
---	{
---		type="level",
---		map="level0.lua",
---		music="Sideways.mp3",
---	},
---	{
---		type="level",
---		map="level1.lua",
---		music="Sideways.mp3",
---	},
---	{
---		type="level",
---		map="level2.lua",
---		music="Sideways.mp3",
---	},
+	{
+		type="picture",
+		image="medium_lapin.jpg",
+		music="picture.ogg"
+	},
+	{
+		type="picture",
+		text="Souvent dans l'être obscur habite un Dieu caché ;\nEt comme un oeil naissant couvert par ses paupières,\nUn pur esprit s'accroît sous l'écorce des pierres !"
+	},
 	{
 		type="level",
-		map="level3.lua",
+		map="level0.lua",
+		music="Sideways.mp3",
+	},
+	{
+		type="level",
+		map="level1.lua",
 		music="Sideways.mp3",
 	},
 	{
@@ -42,7 +32,7 @@ return {
 	},
 	{
 		type="level",
-		map="tutorial_2.lua",
+		map="level2.lua",
 		music="Sideways.mp3",
 	},
 	{
@@ -56,7 +46,7 @@ return {
 	},
 	{
 		type="level",
-		map="tutorial_3.lua",
+		map="level3.lua",
 		music="Sideways.mp3",
 	},
 	{
