@@ -16,6 +16,7 @@ end
 --Load
 function pictureState:load()
 	picture=false
+	picturenbr=0
 	dungeon=dungeonList[dungeonList.current]
 	level=dungeon[dungeon.current]
 	if level.music then
@@ -57,7 +58,10 @@ end
 
 --Update
 function pictureState:update(dt)
-	picture=true
+	picturenbr=picturenbr+1
+	if picturenbr > 2 then
+		picture=true
+	end
 end
 
 --Draw
