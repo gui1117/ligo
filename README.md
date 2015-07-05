@@ -8,7 +8,6 @@ not available
 
 Install stable version
 ----------------------------------------
-not available
 
 * linux : 
 	* install [LÖVE](http://love2d.org) 
