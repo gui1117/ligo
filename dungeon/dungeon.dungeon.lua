@@ -13,7 +13,7 @@ return {
 	{
 		type="level",
 		map="level0.lua",
-		music="Sideways.mp3",
+		music="Ambiance.mp3",
 	},
 	{
 		type="level",
@@ -33,7 +33,7 @@ return {
 	{
 		type="level",
 		map="level2.lua",
-		music="Sideways.mp3",
+		music="Ambiance2.mp3",
 	},
 	{
 		type="picture",
