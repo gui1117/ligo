@@ -26,7 +26,10 @@ I use [Tiled](http://www.mapeditor.org/) a tile map editor,
 and [Tiölved](https://github.com/thiolliere/tiolved) a library I develop to manage Tiled in Löve. 
 It also use [Jumper](https://github.com/Yonaba/Jumper) a pure lua grid-based pathfinding library.
 
-It is in development, 
+It is not in develpment as I moved to another project.
+The project is almost finished but levels must be created and
+I don't like to create some so ... 
+
 the project is free and open source and is hosted on github [here](https://github.com/thiolliere/ligo) and
 all version are available [there](http://www.thiolliere.org/ligo/download).
 
@@ -37,7 +40,7 @@ However surviving is individual.
 The input are simple as possible : 4 directions and a key. 
 It can be played on joystick or keyboard.
 
-It will be easy to create your own map by using tiled.
+It is easy to create your own map by using tiled.
 See the documentation below.
 
 It is released under MIT license,
