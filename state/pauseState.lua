@@ -36,7 +36,7 @@ function pauseState:enable()
 	buttonPress=1
 	currentButton={
 		escape=function()
-			togame=false
+			togame=true
 			disableState("pause")
 		end,
 		{name=function()
@@ -72,7 +72,8 @@ function pauseState:enable()
 			return "return"
 		end,
 		enter=function()
-			currentButton.escape()
+			togame=false
+			disableState("pause")
 		end}
 	}
 
