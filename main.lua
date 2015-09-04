@@ -131,7 +131,7 @@ function love.load()
 end
 
 function love.update(dt)
-	require("lib.lovebird").update()
+--	require("lib.lovebird").update()
 	lovelyMoon.update(dt)
 end
 
