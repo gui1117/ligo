@@ -3,7 +3,7 @@ Ligo
 
 Video
 ----------------------------------------
-not available
+https://www.youtube.com/watch?v=GcHRG5YMPjw
 
 
 Install stable version
